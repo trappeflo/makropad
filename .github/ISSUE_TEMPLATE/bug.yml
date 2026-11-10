@@ -1,0 +1,28 @@
+name: Bug
+description: Etwas funktioniert nicht wie erwartet
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: beschreibung
+    attributes:
+      label: Beschreibung
+      description: Was ist passiert, was wurde erwartet?
+    validations:
+      required: true
+  - type: textarea
+    id: schritte
+    attributes:
+      label: Schritte zur Reproduktion
+      placeholder: "1. ...\n2. ..."
+    validations:
+      required: true
+  - type: input
+    id: umgebung
+    attributes:
+      label: Umgebung
+      description: Browser, Betriebssystem, Firmware-Version, Commit
+  - type: textarea
+    id: ak
+    attributes:
+      label: Behoben, wenn
+      placeholder: "- [ ] ..."

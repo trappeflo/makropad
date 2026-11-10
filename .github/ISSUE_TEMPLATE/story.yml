@@ -1,0 +1,24 @@
+name: User Story
+description: Funktion aus Sicht einer Nutzerin oder eines Nutzers
+labels: ["type:story"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: "Als <Rolle> möchte ich <Ziel>, damit <Nutzen>."
+    validations:
+      required: true
+  - type: textarea
+    id: ak
+    attributes:
+      label: Akzeptanzkriterien
+      description: Als Checkliste, überprüfbar
+      placeholder: "- [ ] ..."
+    validations:
+      required: true
+  - type: input
+    id: quelle
+    attributes:
+      label: Quelle
+      description: z. B. Interview, Anforderung, ADR
