@@ -1,0 +1,22 @@
+name: Task
+description: Kleine technische oder organisatorische Aufgabe (höchstens ca. 1 Tag)
+labels: ["type:task"]
+body:
+  - type: input
+    id: story
+    attributes:
+      label: Zugehörige Story
+      description: Issue-Nummer, falls vorhanden
+  - type: textarea
+    id: ziel
+    attributes:
+      label: Ziel
+    validations:
+      required: true
+  - type: textarea
+    id: ak
+    attributes:
+      label: Akzeptanzkriterien
+      placeholder: "- [ ] ..."
+    validations:
+      required: true
