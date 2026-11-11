@@ -12,3 +12,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-11 | PR #59 ADR 0003 Verweis | Docs | Fehler im Issue-Verweis gefunden und korrigiert | |
 | 2026-11-11 | #37 Anforderungen | Docs | Übertragung von R1 bis R15, Entwurf der Beispielbelegung nach meinen Vorgaben | |
 | 2026-11-11 | #39 Protokoll v1, ADR 0004 | Docs | Interviewfragen zu den Entwurfsentscheidungen, Entwurf von Spezifikation und ADR nach meinen Antworten | |
+| 2026-11-11 | #16 Backend-Gerüst | Backend | Erzeugung des Gerüsts über Spring Initializr, Aufräumen der pom.xml, README | |
