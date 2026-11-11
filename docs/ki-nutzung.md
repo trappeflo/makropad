@@ -9,3 +9,6 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-10 | #34 Projektdefinition | Docs | Entwurf der Texte nach meinen Vorgaben und Interviews | |
 | 2026-11-10 | #35 ADRs | Docs | Entwurf der ADR-Texte nach meinen Entscheidungen | |
 | 2026-11-11 | #57 AGENTS.md | Docs | Entwurf der KI-Regeln nach ADR 0002 | |
+| 2026-11-11 | PR #59 ADR 0003 Verweis | Docs | Fehler im Issue-Verweis gefunden und korrigiert | |
+| 2026-11-11 | #37 Anforderungen | Docs | Übertragung von R1 bis R15, Entwurf der Beispielbelegung nach meinen Vorgaben | |
+| 2026-11-11 | #39 Protokoll v1, ADR 0004 | Docs | Interviewfragen zu den Entwurfsentscheidungen, Entwurf von Spezifikation und ADR nach meinen Antworten | |
