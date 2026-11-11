@@ -21,6 +21,6 @@ PlatformIO mit dem Arduino-Framework für den ESP32-S3.
 ## Folgen
 
 - Reproduzierbarer Build über `platformio.ini`, Build-Prüfung in der CI möglich.
-- Einarbeitung in PlatformIO nötig, im Zeitplan Teil des Hardware-Spikes (Issue #8).
+- Einarbeitung in PlatformIO nötig, im Zeitplan Teil des Hardware-Spikes (Issue #43).
 - Nachteil: Zusätzliche Abhängigkeit gegenüber der Arduino IDE. Bei Problemen mit USB-HID und
   seriellem Kanal gleichzeitig ist ein Wechsel auf ESP-IDF denkbar, aber nicht eingeplant.
