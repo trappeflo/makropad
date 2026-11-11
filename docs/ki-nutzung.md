@@ -8,3 +8,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-10 | #32 Repo-Gerüst | Docs | Entwurf README und Ordnerstruktur | |
 | 2026-11-10 | #34 Projektdefinition | Docs | Entwurf der Texte nach meinen Vorgaben und Interviews | |
 | 2026-11-10 | #35 ADRs | Docs | Entwurf der ADR-Texte nach meinen Entscheidungen | |
+| 2026-11-11 | #57 AGENTS.md | Docs | Entwurf der KI-Regeln nach ADR 0002 | |
