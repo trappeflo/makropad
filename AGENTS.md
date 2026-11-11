@@ -104,6 +104,12 @@ Das Repo wird öffentlich. Es gelten die Regeln der Prüfungsleistung zur Anonym
 - Tests für Kernfunktionen: Vitest (Web), JUnit (Backend), Mock des Geräts für die Web-Anwendung.
   Kein automatisierter Hardware-Test.
 - Code-Dokumentation: Javadoc und OpenAPI (Backend), TSDoc (Web), Kommentare zum Protokoll.
+- **Dateikopf:** Jede neue Quelldatei beginnt mit einer kurzen Übersicht auf Deutsch: Zweck der Datei und was
+  sie enthält (zwei bis vier Zeilen, keine Wiederholung des Codes). Gilt für Code, Tests und Konfiguration mit
+  Kommentarsyntax (TypeScript, Java, C++, YAML, `.properties`). Bei Java steht sie als Javadoc direkt vor der
+  Klasse, weil `package` und `import` zuerst kommen. Ausgenommen sind Dateien ohne Kommentarmöglichkeit
+  (z. B. JSON) und generierte Dateien. Markdown-Dokumente beginnen ohnehin mit einer Einleitung.
+  Wird eine Datei grundlegend umgebaut, den Kopf anpassen.
 - Das Protokoll zwischen Web und Pad ist versioniert (Protokoll v1), Änderungen daran erst als ADR.
 - Kleine, fokussierte Commits mit aussagekräftigen deutschen Nachrichten, ein Thema pro PR.
 
