@@ -14,3 +14,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-11 | #39 Protokoll v1, ADR 0004 | Docs | Interviewfragen zu den Entwurfsentscheidungen, Entwurf von Spezifikation und ADR nach meinen Antworten | |
 | 2026-11-11 | #40 ADR 0005 Rolle des Backends | Docs | Interviewfragen zu den Entscheidungen, Entwurf des ADR-Textes nach meinen Antworten | |
 | 2026-11-11 | #16 Backend-Gerüst | Backend | Erzeugung des Gerüsts über Spring Initializr, Aufräumen der pom.xml, README | |
+| 2026-11-11 | #17, #18 Profil-API und Persistenz | Backend | Umsetzung nach meinen Entscheidungen (JSON in einer Spalte, Name als Schlüssel, Strukturvalidierung, ProblemDetail, POST/PUT), Tests | |
