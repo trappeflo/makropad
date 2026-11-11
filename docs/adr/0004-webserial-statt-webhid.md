@@ -1,6 +1,6 @@
 # ADR 0004: WebSerial statt WebHID für die Verbindung zum Pad
 
-Status: Entwurf, Datum 2026-11-11
+Status: akzeptiert, Datum 2026-11-11
 
 ## Kontext
 
@@ -31,7 +31,7 @@ Hardware-Spike #43 geprüft werden.)
 WebSerial über USB-CDC. Das Protokoll ist textbasiert (JSON pro Zeile) und in
 [Protokoll v1](../protokoll-v1.md) beschrieben.
 
-Begründung (TODO: in eigenen Worten bestätigen oder ersetzen):
+Begründung:
 - Textnachrichten sind im Terminal lesbar und in Tests und Mock einfach nachzubilden.
 - Kein Treiber und kein Hintergrundprogramm nötig.
 - Die ESP32-S3-Firmware (ADR 0003) kann Tastatur und serielle Schnittstelle über USB gleichzeitig anbieten.
