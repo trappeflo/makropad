@@ -30,8 +30,10 @@ Das Backend ist eine **Sicherungsschicht**. Dazu gelten diese Festlegungen:
   Pad nur auf ausdrückliche Aktion der Nutzerin, es gibt keinen automatischen Abgleich.
 - **Sichern und Wiederherstellen laufen auf Knopfdruck** in der Web-App. Die Web-App funktioniert bei
   nicht erreichbarem Backend uneingeschränkt, nur diese beiden Aktionen sind dann nicht verfügbar.
-- **Zuordnung je Gerätekennung:** Profile werden je Pad gesichert. Dafür liefert das Pad eine Kennung in
-  `device.info` (Ergänzung des Protokolls v1, siehe Folgen). Nutzerkonten gibt es nicht.
+- **Ein gemeinsamer Bestand, lokal betrieben:** Das Backend hat keine Anmeldung und keine Zuordnung zu
+  Nutzern oder Geräten, sondern einen einzigen Bestand an Profilen. Nutzerkonten gibt es nicht. Eine
+  Gerätekennung (je Pad sichern) wurde erwogen und verworfen, weil sie ein zusätzliches Feld im Protokoll
+  und Firmware-Aufwand bedeutet hätte.
 
 Begründung (TODO: in eigenen Worten bestätigen oder ersetzen):
 - Das Backend ist kein Pflichtbestandteil der Gerätenutzung, was zu den Aussagen beider Personas passt.
@@ -41,13 +43,13 @@ Begründung (TODO: in eigenen Worten bestätigen oder ersetzen):
 
 ## Folgen
 
-- Das Protokoll v1 braucht in `device.info` ein Feld für die Gerätekennung (z. B. `deviceId`). Die Firmware
-  muss eine stabile Kennung liefern (z. B. aus einer chipeigenen Kennung). Die Protokoll-Spezifikation wird
-  entsprechend ergänzt.
+- Das Protokoll v1 bleibt unverändert, `device.info` braucht keine Kennung.
 - Das Backend hat keine Anmeldung und ist für den lokalen Betrieb gedacht, nicht für öffentliches Hosting.
   Diese Grenze wird in der API-Dokumentation genannt.
-- Ohne Nutzerkonten, Versionierung und Teilen von Profilen (nicht im Scope) bleibt die API klein: je Gerät
-  Profile lesen, speichern und löschen.
+- Ohne Nutzerkonten, Versionierung und Teilen von Profilen (nicht im Scope) bleibt die API klein: Profile
+  lesen, speichern und löschen.
+- Hängen mehrere Pads am selben Backend, teilen sie sich den Bestand. Profile sind darin über Namen
+  unterscheidbar. Eine Trennung je Gerät wäre ein späterer Ausbau und eine Protokolländerung.
 - Bei Verzug ist der Rückfall Export und Import einer Datei (Plan, Kürzungsreihenfolge Punkt 4). Die
   Dateiform entspricht dem Profilformat aus dem Protokoll v1, damit beide Wege dasselbe Format nutzen.
 - Nutzung auf mehreren Rechnern ist nur über Wiederherstellen aus dem Backend möglich. Persona B wollte noch
