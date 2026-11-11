@@ -1,6 +1,6 @@
 # ADR 0005: Rolle des Backends
 
-Status: Entwurf, Datum 2026-11-11
+Status: akzeptiert, Datum 2026-11-11
 
 ## Kontext
 
@@ -35,7 +35,7 @@ Das Backend ist eine **Sicherungsschicht**. Dazu gelten diese Festlegungen:
   Gerätekennung (je Pad sichern) wurde erwogen und verworfen, weil sie ein zusätzliches Feld im Protokoll
   und Firmware-Aufwand bedeutet hätte.
 
-Begründung (TODO: in eigenen Worten bestätigen oder ersetzen):
+Begründung:
 - Das Backend ist kein Pflichtbestandteil der Gerätenutzung, was zu den Aussagen beider Personas passt.
 - Die Sicherung dient der Robustheit, der zentralen Qualitätsanforderung.
 - Der Schwerpunkt der Arbeit liegt auf Web-Anwendung und Backend (Projektdefinition), das Backend liefert
