@@ -16,3 +16,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-11 | #16 Backend-Gerüst | Backend | Erzeugung des Gerüsts über Spring Initializr, Aufräumen der pom.xml, README | |
 | 2026-11-11 | #17, #18 Profil-API und Persistenz | Backend | Umsetzung nach meinen Entscheidungen (JSON in einer Spalte, Name als Schlüssel, Strukturvalidierung, ProblemDetail, POST/PUT), Tests | |
 | 2026-11-11 | AGENTS.md Dateikopf-Regel | Docs | Formulierung der Regel nach meiner Vorgabe | |
+| 2026-11-11 | #2 Web-Gerüst | Web | Erzeugung des Gerüsts mit Vite, Einrichtung von Vitest, Platzhalterseite, README | |
