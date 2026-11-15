@@ -1,6 +1,50 @@
 # firmware
 
-C++-Firmware für den ESP32-S3 (PlatformIO, Arduino-Framework): Tasten und Drehregler einlesen,
-USB-HID senden, Profile über die serielle Schnittstelle empfangen und speichern.
+C++-Firmware für den ESP32-S3 (PlatformIO, Arduino-Framework): Tasten einlesen, entprellen und als
+USB-Tastatur senden. Später kommen Drehregler, Profile, Protokoll-Handler und Flash dazu.
 
-Status: Gerüst folgt in Meilenstein M3 (siehe Stories US5 bis US7).
+## Stand
+
+| Issue | Inhalt | Stand |
+|---|---|---|
+| #21 | Gerüst mit PlatformIO | Build und Upload funktionieren |
+| #23 | Tasten einlesen und entprellen | 4 Tasten, interner Pull-up, Entprellen in `src/debouncer.h` |
+| #24 | USB-HID: Kombination und Text | Schritte (`mod`, `key`, `delay`) nach Protokoll v1, fest eingebaute Beispielbelegung |
+| #26, #27 | Drehregler, Profilwechsel | offen |
+| #29, #30 | Protokoll-Handler, Flash | offen |
+
+## Aufbau
+
+| Datei | Inhalt |
+|---|---|
+| `src/config.h` | Pins der Tasten (GPIO 1, 2, 4, 5), Entprellzeit |
+| `src/debouncer.h` | Entprellen eines Eingangs, ohne Arduino-Abhängigkeit |
+| `src/actions.h/.cpp` | Schritte als rohe HID-Codes, Abspielen über die USB-Tastatur, Beispielbelegung "Programmierung" |
+| `src/main.cpp` | `setup()` und `loop()` |
+| `spike/` | Wegwerf-Sketche des Hardware-Spikes (#43), nicht Teil der Firmware |
+
+Die Firmware rechnet **keinen Text** um. Sie spielt nur rohe HID-Codes ab, die Web-App erzeugt sie für das
+Layout `de-DE` (siehe [Protokoll v1](../docs/protokoll-v1.md) und [Hardware-Spike](../docs/hardware-spike.md)).
+
+## Verdrahtung
+
+Jede Taste liegt zwischen GPIO und GND, der interne Pull-up genügt (LOW = gedrückt).
+
+| Taste | GPIO |
+|---|---|
+| T1 bis T4 | 1, 2, 4, 5 |
+| Drehregler A / B / Taster (noch nicht in der Firmware) | 11 / 12 / 13 |
+
+## Bauen und flashen
+
+```
+python -m platformio run -t upload
+```
+
+- Das Board hat 4 MB Flash. Die `platformio.ini` passt das Profil an.
+- Die Firmware läuft im USB-OTG-Modus als Verbundgerät (Tastatur und serielle Schnittstelle).
+  Neuflashen geht dann nur im Download-Modus: **BOOT halten und RESET drücken**, nach dem Flashen noch
+  einmal **RESET**.
+- Die Debug-Ausgabe (`T1 pressed` usw.) hängt am Build-Flag `MAKROPAD_DEBUG`. Mit dem Protokoll-Handler (#29)
+  muss sie entfallen, weil das Pad nach Protokoll v1 nie von sich aus sendet.
+- Achtung beim Testen: Eine Taste tippt echt in das Fenster mit Fokus. Vorher Notepad öffnen.
