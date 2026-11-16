@@ -21,4 +21,5 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-15 | #21, #23, #24 Firmware-Gerüst, Tasten, HID | Firmware | Gerüst, Entprellen und Abspielen der HID-Schritte, Beispielbelegung nach docs/anforderungen.md | |
 | 2026-11-16 | #3 Profilmodell (Typen, Validierung) | Web | Zod-Schemas nach meinen Entscheidungen (diskriminierte Union, Zod, Grenzen als Parameter), Tests | |
 | 2026-11-16 | #3 Zustandsverwaltung des Editors | Web | Reducer, Context und Tests nach meinen Entscheidungen (setKey/clearKey, dirty per Vergleich, ohne Validierung im Reducer, leeres Startprofil) | |
+| 2026-11-16 | #7 Aktionsbibliothek (Struktur und Inhalte) | Web | Schema, Datei mit Beispielaktionen für drei Gruppen, Tests und Kurzbeschreibung nach meinen Entscheidungen (nur intent, Gruppen, Felder) | |
 | 2026-11-16 | #4 Editor-Oberfläche | Web | Pad-Ansicht, Formular je Typ, Layouts als Daten (4/9 Tasten), Mantine-Einbindung und Tests nach meinen Entscheidungen | |
