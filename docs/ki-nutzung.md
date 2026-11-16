@@ -19,3 +19,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-11 | #2 Web-Gerüst | Web | Erzeugung des Gerüsts mit Vite, Einrichtung von Vitest, Platzhalterseite, README | |
 | 2026-11-11 | #43 Hardware-Spike | Firmware | Testsketche, Auswertung der Messungen am Board, Ergebnisdokument | |
 | 2026-11-15 | #21, #23, #24 Firmware-Gerüst, Tasten, HID | Firmware | Gerüst, Entprellen und Abspielen der HID-Schritte, Beispielbelegung nach docs/anforderungen.md | |
+| 2026-11-16 | #26 Drehregler auslesen | Firmware | Quadratur-Dekoder (Zustandstabelle), Einbindung in die Hauptschleife, Debug-Ausgabe | |

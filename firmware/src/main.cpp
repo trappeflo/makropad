@@ -1,17 +1,21 @@
 /*
  * Zweck: Einstiegspunkt der Firmware (Issue #21): Tasten lesen, entprellen, Aktion senden.
  * Inhalt: setup() richtet Pins und USB ein, loop() fragt alle Tasten ab und spielt bei einem
- *         akzeptierten Tastendruck die Schritte der Taste ab. Drehregler (#26), Profilwechsel (#27),
- *         Protokoll-Handler (#29) und Flash (#30) folgen in eigenen Issues.
+ *         akzeptierten Tastendruck die Schritte der Taste ab. Der Drehregler (#26) wird abgefragt und
+ *         die Drehrichtung ausgegeben. Profilwechsel (#27), Protokoll-Handler (#29) und Flash (#30)
+ *         folgen in eigenen Issues.
  */
 #include <Arduino.h>
 
 #include "actions.h"
 #include "config.h"
 #include "debouncer.h"
+#include "encoder.h"
 
 Debouncer debouncers[NUM_KEYS] = {Debouncer(DEBOUNCE_MS), Debouncer(DEBOUNCE_MS), Debouncer(DEBOUNCE_MS),
                                   Debouncer(DEBOUNCE_MS)};
+
+QuadratureDecoder encoder(ENCODER_STEPS_PER_DETENT);
 
 void setup() {
 #if MAKROPAD_DEBUG
@@ -20,11 +24,22 @@ void setup() {
   for (uint8_t i = 0; i < NUM_KEYS; i++) {
     pinMode(KEY_PINS[i], INPUT_PULLUP);  // key connects pin to GND, so LOW = pressed
   }
+  pinMode(ENCODER_PIN_A, INPUT_PULLUP);
+  pinMode(ENCODER_PIN_B, INPUT_PULLUP);
   initKeyboard();
 }
 
 void loop() {
   const uint32_t now = millis();
+
+  const int8_t turn = encoder.update(digitalRead(ENCODER_PIN_A) == HIGH, digitalRead(ENCODER_PIN_B) == HIGH);
+  if (turn != 0) {
+#if MAKROPAD_DEBUG
+    Serial.printf("ENC %+d\n", turn);
+#endif
+    // Profile switching (#27) hooks in here.
+  }
+
   for (uint8_t i = 0; i < NUM_KEYS; i++) {
     const bool raw = digitalRead(KEY_PINS[i]) == LOW;
     if (!debouncers[i].update(raw, now)) continue;
