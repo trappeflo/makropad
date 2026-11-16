@@ -32,17 +32,23 @@ const baseKey = {
   steps: z.array(stepSchema).min(1),
 }
 
+/** Intent of a key combination, e.g. `ctrl+shift+p`. */
+export const comboIntentSchema = z.object({ keys: z.string().min(1) })
+
+/** Intent of a text action, optionally followed by Enter. */
+export const textIntentSchema = z.object({ text: z.string().min(1), enter: z.boolean() })
+
 /** Action of one key. `intent` is what the user meant, `steps` is what the pad plays. */
 export const keyActionSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('combo'),
     ...baseKey,
-    intent: z.object({ keys: z.string().min(1) }),
+    intent: comboIntentSchema,
   }),
   z.object({
     type: z.literal('text'),
     ...baseKey,
-    intent: z.object({ text: z.string().min(1), enter: z.boolean() }),
+    intent: textIntentSchema,
   }),
   z.object({
     type: z.literal('macro'),
