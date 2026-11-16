@@ -19,3 +19,5 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-11 | #2 Web-Gerüst | Web | Erzeugung des Gerüsts mit Vite, Einrichtung von Vitest, Platzhalterseite, README | |
 | 2026-11-11 | #43 Hardware-Spike | Firmware | Testsketche, Auswertung der Messungen am Board, Ergebnisdokument | |
 | 2026-11-15 | #21, #23, #24 Firmware-Gerüst, Tasten, HID | Firmware | Gerüst, Entprellen und Abspielen der HID-Schritte, Beispielbelegung nach docs/anforderungen.md | |
+| 2026-11-16 | #3 Profilmodell (Typen, Validierung) | Web | Zod-Schemas nach meinen Entscheidungen (diskriminierte Union, Zod, Grenzen als Parameter), Tests | |
+| 2026-11-16 | #3 Zustandsverwaltung des Editors | Web | Reducer, Context und Tests nach meinen Entscheidungen (setKey/clearKey, dirty per Vergleich, ohne Validierung im Reducer, leeres Startprofil) | |
