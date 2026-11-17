@@ -1,7 +1,8 @@
 /*
  * Zweck: Tests der Editor-Oberfläche (Issue #4).
  * Inhalt: Raster aus der Tastenzahl, Auswahl einer Taste, Belegen mit Label und Typ, Drehknopf ohne Formular,
- *         Schrittzahl und Fehler der Umrechnung (#74).
+ *         Schrittzahl und Fehler der Umrechnung (#74),
+ *         Umbenennen des Profils (#85).
  */
 import { MantineProvider } from '@mantine/core'
 import { render, screen } from '@testing-library/react'
@@ -71,5 +72,21 @@ describe('Editor', () => {
 
     await user.type(screen.getByRole('textbox', { name: 'Tastenkombination' }), 'x')
     expect(screen.getByText('Unbekannte Taste "zx".')).toBeInTheDocument()
+  })
+
+  it('renames the profile and shows why an invalid name is not allowed', async () => {
+    const user = setup()
+    const field = screen.getByRole('textbox', { name: 'Profilname' })
+    expect(field).toHaveValue('Neues Profil')
+
+    await user.clear(field)
+    expect(screen.getByText('Der Name darf nicht leer sein.')).toBeInTheDocument()
+
+    await user.type(field, 'Büro!')
+    expect(screen.getByText('Nur Buchstaben, Ziffern, Leerzeichen, - und _ sind erlaubt.')).toBeInTheDocument()
+
+    await user.clear(field)
+    await user.type(field, 'Büro Meeting')
+    expect(screen.queryByText(/Nur Buchstaben/)).not.toBeInTheDocument()
   })
 })

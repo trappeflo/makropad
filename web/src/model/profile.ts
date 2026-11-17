@@ -58,12 +58,21 @@ export const keyActionSchema = z.discriminatedUnion('type', [
   }),
 ])
 
+const MAX_NAME_LENGTH = 64
+const NAME_PATTERN = /^[\p{L}\p{N} _-]+$/u
+
+const nameSchema = z.string().min(1).max(MAX_NAME_LENGTH).regex(NAME_PATTERN, 'only letters, digits, space, - and _')
+
+/** Explains in German why a profile name is not allowed, or returns null if it is fine. */
+export function profileNameError(name: string): string | null {
+  if (name === '') return 'Der Name darf nicht leer sein.'
+  if (name.length > MAX_NAME_LENGTH) return `Höchstens ${MAX_NAME_LENGTH} Zeichen.`
+  if (!NAME_PATTERN.test(name)) return 'Nur Buchstaben, Ziffern, Leerzeichen, - und _ sind erlaubt.'
+  return null
+}
+
 export const profileSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .max(64)
-    .regex(/^[\p{L}\p{N} _-]+$/u, 'only letters, digits, space, - and _'),
+  name: nameSchema,
   layout: z.literal('de-DE'),
   keys: z.array(keyActionSchema.nullable()),
 })
