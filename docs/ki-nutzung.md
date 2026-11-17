@@ -24,3 +24,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-16 | #7 Aktionsbibliothek (Struktur und Inhalte) | Web | Schema, Datei mit Beispielaktionen für drei Gruppen, Tests und Kurzbeschreibung nach meinen Entscheidungen (nur intent, Gruppen, Felder) | |
 | 2026-11-16 | #4 Editor-Oberfläche | Web | Pad-Ansicht, Formular je Typ, Layouts als Daten (4/9 Tasten), Mantine-Einbindung und Tests nach meinen Entscheidungen | |
 | 2026-11-17 | #8 Bibliotheksauswahl im Editor | Web | Auswahl mit Programmfilter und Suche (LibraryPicker), Einbau ins Tasten-Formular und Tests | |
+| 2026-11-17 | #74 Schritte aus der Absicht (de-DE) | Web | Umrechnung (Tabellen, Kombination, Text, AltGr), Einbau im Formular und Tests nach meinen Entscheidungen (bei jeder Änderung, Fehlertext, AltGr-Zeichen) | |
