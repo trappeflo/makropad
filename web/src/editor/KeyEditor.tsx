@@ -1,12 +1,13 @@
 /*
  * Zweck: Formular zum Belegen der gewählten Taste (Issue #4).
  * Inhalt: Komponente KeyEditor. Typ (nicht belegt, Tastenkombination, Text), Label und die zum Typ passenden
- *         Felder. Änderungen gehen als setKey/clearKey an den Reducer. Die Schritte für das Pad werden hier
- *         nicht aus der Eingabe abgeleitet, das folgt mit der Aktionsbibliothek (#7, #8).
+ *         Felder. Darüber wählt der LibraryPicker eine Aktion aus der Bibliothek (#8). Änderungen gehen als
+ *         setKey/clearKey an den Reducer. Die Schritte für das Pad werden hier nicht aus der Eingabe abgeleitet.
  */
 import { Alert, SegmentedControl, Stack, Switch, Text, TextInput } from '@mantine/core'
 import type { KeyAction } from '../model/profile.ts'
 import type { EditorAction } from '../model/profileReducer.ts'
+import { LibraryPicker } from './LibraryPicker.tsx'
 
 type ActionType = 'none' | KeyAction['type']
 
@@ -33,6 +34,8 @@ export function KeyEditor({ index, action, dispatch }: KeyEditorProps) {
   return (
     <Stack>
       <Text fw={600}>Taste {index + 1}</Text>
+
+      <LibraryPicker onPick={(picked) => dispatch({ type: 'setKey', index, action: picked })} />
 
       <SegmentedControl
         aria-label="Art der Belegung"
@@ -94,7 +97,7 @@ export function KeyEditor({ index, action, dispatch }: KeyEditorProps) {
           )}
 
           <Alert color="gray">
-            Die Schritte für das Pad werden mit der Aktionsbibliothek (#7, #8) aus dieser Eingabe erzeugt.
+            Die Schritte für das Pad werden später aus dieser Eingabe erzeugt.
           </Alert>
         </>
       )}
