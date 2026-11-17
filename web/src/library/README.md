@@ -1,7 +1,7 @@
 # Aktionsbibliothek
 
 Statische Sammlung typischer Aktionen für die Tasten (Anforderung R10, Issue #7). Sie ist eine JSON-Datei ohne
-Backend. Die Auswahl in der Oberfläche folgt in #8.
+Backend. Die Auswahl in der Oberfläche (`web/src/editor/LibraryPicker.tsx`) kam mit #8.
 
 ## Aufbau von `actions.json`
 
