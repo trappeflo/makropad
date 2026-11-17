@@ -1,6 +1,7 @@
 /*
  * Zweck: Tests der Editor-Oberfläche (Issue #4).
- * Inhalt: Raster aus der Tastenzahl, Auswahl einer Taste, Belegen mit Label und Typ, Drehknopf ohne Formular.
+ * Inhalt: Raster aus der Tastenzahl, Auswahl einer Taste, Belegen mit Label und Typ, Drehknopf ohne Formular,
+ *         Schrittzahl und Fehler der Umrechnung (#74).
  */
 import { MantineProvider } from '@mantine/core'
 import { render, screen } from '@testing-library/react'
@@ -59,5 +60,16 @@ describe('Editor', () => {
     await user.click(screen.getByRole('button', { name: 'Drehknopf' }))
     expect(screen.getByText(/nichts zu belegen/)).toBeInTheDocument()
     expect(screen.queryByLabelText('Name')).not.toBeInTheDocument()
+  })
+
+  it('shows the number of steps and an error for an unknown key', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'Taste 1' }))
+    await user.click(screen.getByText('Tastenkombination'))
+    await user.type(screen.getByRole('textbox', { name: 'Tastenkombination' }), 'ctrl+z')
+    expect(screen.getByText('1 Schritt für das Pad')).toBeInTheDocument()
+
+    await user.type(screen.getByRole('textbox', { name: 'Tastenkombination' }), 'x')
+    expect(screen.getByText('Unbekannte Taste "zx".')).toBeInTheDocument()
   })
 })
