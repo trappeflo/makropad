@@ -20,3 +20,6 @@ globalThis.ResizeObserver ??= class {
   unobserve() {}
   disconnect() {}
 }
+
+// jsdom kennt scrollIntoView nicht, Mantine ruft es beim Öffnen von Auswahllisten auf.
+Element.prototype.scrollIntoView ??= () => {}

@@ -17,11 +17,13 @@ export type WriteState =
 export function useProfileWrite() {
   const [state, setState] = useState<WriteState>({ status: 'idle' })
 
-  const write = useCallback(async (client: ProtocolClient, index: number, profile: Profile) => {
+  /** @returns true if the profile was written and confirmed by reading it back */
+  const write = useCallback(async (client: ProtocolClient, index: number, profile: Profile): Promise<boolean> => {
     setState({ status: 'running', phase: 'info' })
     try {
       await writeProfile(client, index, profile, (phase) => setState({ status: 'running', phase }))
       setState({ status: 'success' })
+      return true
     } catch (error) {
       // Anything that is not a WriteError is a bug, it is shown like a failure of the current phase.
       const failure =
@@ -29,6 +31,7 @@ export function useProfileWrite() {
           ? error
           : new WriteError('write', 'INVALID_RESPONSE', error instanceof Error ? error.message : String(error))
       setState({ status: 'error', error: failure })
+      return false
     }
   }, [])
 
