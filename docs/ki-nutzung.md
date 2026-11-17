@@ -26,3 +26,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-17 | #8 Bibliotheksauswahl im Editor | Web | Auswahl mit Programmfilter und Suche (LibraryPicker), Einbau ins Tasten-Formular und Tests | |
 | 2026-11-17 | #74 Schritte aus der Absicht (de-DE) | Web | Umrechnung (Tabellen, Kombination, Text, AltGr), Einbau im Formular und Tests nach meinen Entscheidungen (bei jeder Änderung, Fehlertext, AltGr-Zeichen) | |
 | 2026-11-17 | #12 Protokoll-Client | Web | Client, Transport-Interface, Fehlerklasse und Tests nach meinen Entscheidungen (Exceptions, zeilenbasierter Transport) | |
+| 2026-11-17 | #13 Mock des Geräts | Web | MockDevice als Transport mit Protokoll-Fehlercodes, Haken für Fehlerfälle und Tests | |
