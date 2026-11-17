@@ -142,4 +142,28 @@ describe('WriteControls', () => {
     expect(await screen.findByText(/Slot ließ sich nicht prüfen/)).toBeInTheDocument()
     expect(screen.getByText('ungespeichert')).toBeInTheDocument()
   })
+
+  it('blocks the button while the profile name is invalid', async () => {
+    const { user, device } = await setup()
+    await connect(user)
+
+    await user.clear(screen.getByRole('textbox', { name: 'Profilname' }))
+    expect(screen.getByRole('button', { name: 'Auf das Pad schreiben' })).toBeDisabled()
+    expect(screen.getByText(/Profilname ungültig/)).toBeInTheDocument()
+    expect(device.received).toHaveLength(1) // only the device.info from connecting
+  })
+
+  it('writes the profile under the new name', async () => {
+    const { user, device } = await setup()
+    await connect(user)
+    await editKey(user)
+
+    const field = screen.getByRole('textbox', { name: 'Profilname' })
+    await user.clear(field)
+    await user.type(field, 'Büro')
+    await user.click(screen.getByRole('button', { name: 'Auf das Pad schreiben' }))
+
+    await screen.findByText(/beim Zurücklesen bestätigt/)
+    expect(device.profiles[0].name).toBe('Büro')
+  })
 })

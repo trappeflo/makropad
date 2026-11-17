@@ -2,13 +2,14 @@
  * Zweck: Auslöser für das Schreiben des Profils auf das Pad (Issue #80).
  * Inhalt: Komponente WriteControls. Slot-Auswahl aus device.info und der Button "Auf das Pad schreiben", nur bei
  *         bestehender Verbindung. Vor dem Schreiben wird der Slot gelesen: enthält er ein anderes Profil (anderer
- *         Name), fragt die Komponente nach. Danach läuft writeProfile (#14), WriteStatus zeigt den Verlauf, und
+ *         Name), fragt die Komponente nach. Bei ungültigem Profilnamen ist der Button gesperrt (#85). Danach läuft writeProfile (#14), WriteStatus zeigt den Verlauf, und
  *         nach Erfolg gilt das Profil im Editor als gespeichert.
  */
 import { Alert, Button, Group, Select, Stack, Text } from '@mantine/core'
 import { useState } from 'react'
 import { useDeviceConnection } from '../connection/deviceConnectionContext.ts'
 import { useProfileEditor } from '../model/editorContext.ts'
+import { profileNameError } from '../model/profile.ts'
 import { useProfileWrite } from './useProfileWrite.ts'
 import { WriteStatus } from './WriteStatus.tsx'
 
@@ -28,6 +29,7 @@ export function WriteControls() {
     label: `Profil ${i + 1}`,
   }))
   const busy = writeState.status === 'running'
+  const nameError = profileNameError(state.profile.name)
 
   async function run() {
     if (client === null) return
@@ -68,10 +70,12 @@ export function WriteControls() {
           disabled={busy}
           w={160}
         />
-        <Button onClick={start} loading={busy} disabled={confirming !== null}>
+        <Button onClick={start} loading={busy} disabled={confirming !== null || nameError !== null}>
           Auf das Pad schreiben
         </Button>
       </Group>
+
+      {nameError !== null && <Text size="sm" c="red">Profilname ungültig: {nameError}</Text>}
 
       {confirming !== null && (
         <Alert color="yellow" title="Slot ist belegt">

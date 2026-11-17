@@ -1,9 +1,9 @@
 /*
  * Zweck: Tests für Profilmodell und Validierung (Issue #3).
- * Inhalt: gültige Profile, Strukturfehler, Grenzen des Geräts und Pfadangaben der Fehler.
+ * Inhalt: gültige Profile, Strukturfehler, Grenzen des Geräts, Pfadangaben der Fehler und Profilnamen (#85).
  */
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_LIMITS, validateProfile, type KeyAction, type Profile } from './profile.ts'
+import { DEFAULT_LIMITS, profileNameError, validateProfile, type KeyAction, type Profile } from './profile.ts'
 
 const combo: KeyAction = {
   type: 'combo',
@@ -73,5 +73,23 @@ describe('validateProfile', () => {
 
   it('rejects input that is not an object', () => {
     expect(validateProfile(null).length).toBeGreaterThan(0)
+  })
+})
+
+describe('profileNameError', () => {
+  it('accepts the names the schema accepts', () => {
+    for (const name of ['Büro', 'Programmierung 2', 'a-b_c', 'x'.repeat(64)]) {
+      expect(profileNameError(name), name).toBeNull()
+      expect(validateProfile(profile({ name })), name).toEqual([])
+    }
+  })
+
+  it('explains empty, too long and invalid names, in line with the schema', () => {
+    expect(profileNameError('')).toBe('Der Name darf nicht leer sein.')
+    expect(profileNameError('x'.repeat(65))).toBe('Höchstens 64 Zeichen.')
+    expect(profileNameError('Büro!')).toBe('Nur Buchstaben, Ziffern, Leerzeichen, - und _ sind erlaubt.')
+    for (const name of ['', 'x'.repeat(65), 'Büro!']) {
+      expect(validateProfile(profile({ name })).length, name).toBeGreaterThan(0)
+    }
   })
 })
