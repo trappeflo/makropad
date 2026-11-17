@@ -37,6 +37,13 @@ Fehler kommen als Problem Details (RFC 9457, `application/problem+json`). Bei un
 
 Namen dürfen Buchstaben, Ziffern, Leerzeichen, `-` und `_` enthalten (max. 64 Zeichen).
 
+## CORS
+
+Die Web-App läuft auf einem anderen Port (Entwicklungsserver `http://localhost:5173`) und braucht deshalb eine
+Freigabe, sonst blockiert der Browser die Antworten. Erlaubt ist nur die Herkunft aus
+`makropad.cors.allowed-origins` in `application.properties`, nie jede. Mehrere Herkünfte werden durch Komma
+getrennt. Läuft die Web-App unter einer anderen Adresse, muss sie dort eingetragen werden.
+
 ## Daten
 
 Die Datenbank liegt als Datei in `backend/data/` (per `.gitignore` ausgeschlossen) und überlebt einen Neustart.
@@ -45,4 +52,4 @@ Das Backend hat keine Anmeldung und ist für den lokalen Betrieb gedacht (ADR 00
 
 ## Stand
 
-Profil-API mit Persistenz (#17, #18). CORS für die Web-App (#5) und die OpenAPI-Beschreibung (#19) folgen.
+Profil-API mit Persistenz (#17, #18). CORS für die Web-App (#5). Die OpenAPI-Beschreibung (#19) folgt.
