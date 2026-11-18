@@ -32,3 +32,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-17 | #80 Schreiben-Button mit Slot-Auswahl | Web | WriteControls (Slot-Auswahl, Rückfrage bei anderem Profil im Slot, Anbindung an writeProfile und markSaved) mit Tests nach meinen Entscheidungen (Slot im Editor wählbar, Rückfrage bei anderem Profil, Laden ausgelagert) | |
 | 2026-11-17 | #81 Prozess-Log KW 1 | Docs | Interviewfragen zum Wochenstand, Entwurf der Formulierungen nach meinen Antworten (Stunden, Probleme, Erkenntnisse) | |
 | 2026-11-17 | #85 Profilname im Editor | Web | Eingabefeld mit Fehlerhinweis, profileNameError, Sperre des Schreiben-Buttons und Tests | |
+| 2026-11-18 | #19 OpenAPI und Javadoc | Backend | springdoc-Anbindung, Annotationen an den Endpunkten, Beispielprofil, OpenApiTest und fehlende Javadoc-Kommentare nach meinen Entscheidungen (generiert mit springdoc, knappe Beschreibung) | |
