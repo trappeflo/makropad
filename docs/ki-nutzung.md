@@ -45,3 +45,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-22 | #31 Rauchtest für den Parallelbetrieb | Firmware | Python-Skript smoke_test.py (Protokoll-Befehle, Fehlerfälle, Anfragen während Tastendrücken), nicht ausgeführt | |
 | 2026-11-22 | #46 Code-Dokumentation | Web, Docs | TSDoc-Kommentare an exportierten Funktionen, Typen und Komponenten (nur Kommentare, kein Code geändert), Stand in den READMEs, Übersicht der Code-Dokumentation | |
 | 2026-11-22 | #45 Integrationstest | Docs | Vorlage für den manuellen Durchlauf Web, Pad, Backend (Schritte und Erwartungen aus den Anforderungen, Ergebnisspalten leer) | |
+| 2026-11-22 | #1 Neues Profil im Editor | Web | Knopf "Neues Profil" mit Rückfrage bei ungespeicherten Änderungen (Editor, nutzt den vorhandenen load-Fall) und Tests | |
