@@ -33,3 +33,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-17 | #81 Prozess-Log KW 1 | Docs | Interviewfragen zum Wochenstand, Entwurf der Formulierungen nach meinen Antworten (Stunden, Probleme, Erkenntnisse) | |
 | 2026-11-17 | #85 Profilname im Editor | Web | Eingabefeld mit Fehlerhinweis, profileNameError, Sperre des Schreiben-Buttons und Tests | |
 | 2026-11-18 | #83 Profil vom Pad laden | Web | Button "Vom Pad laden" in WriteControls (gemeinsame Slot-Auswahl, Hinweis bei leerem Slot, Rückfrage bei ungespeicherten Änderungen) mit Tests nach meinen Entscheidungen (gemeinsame Auswahl, leerer Slot lässt den Editor unverändert) | |
+| 2026-11-22 | #98 Prozess-Log Nachtrag KW 1 | Docs | Formulierungsvorschlag für Rückblick und Plan KW 2 nach meinen Antworten im Interview (Stunden bestätigt, Hardware gut, Review-Stapel als Engpass) | |
