@@ -2,13 +2,15 @@
  * Zweck: Abspielen von Schritten über die USB-Tastatur und die eingebaute Beispielbelegung (Issue #24).
  * Inhalt: Der Tastatur-Treiber (Arduino USBHIDKeyboard) wird mit fertigen HID-Reports angesteuert, damit
  *         das Tastaturlayout des Rechners keine Rolle spielt (print() würde US-Codes senden, siehe
- *         docs/hardware-spike.md). Darunter die Beispielbelegung von Profil 1 als HID-Codes.
+ *         docs/hardware-spike.md). Darunter die Beispielbelegung beider Profile als HID-Codes das aktive Profil (Issue #27) und die Auswahl zwischen Slot und Beispiel (Issue #29).
  */
 #include "actions.h"
 
 #include <Arduino.h>
 #include <USB.h>
 #include <USBHIDKeyboard.h>
+
+#include "profile_store.h"
 
 namespace {
 
@@ -52,7 +54,22 @@ constexpr KeyAction make(const Step (&steps)[N]) {
   return {steps, N};
 }
 
-const KeyAction PROFILE[NUM_KEYS] = {make(T1), make(T2), make(T3), make(T4)};
+// Profile 2 "Büro/Meeting" (docs/anforderungen.md)
+constexpr uint8_t HID_TAB = 0x2B;
+// T1: Teams mute Ctrl+Shift+M
+constexpr Step B1[] = {press(MOD_CTRL | MOD_SHIFT, HID_M)};
+// T2: Teams screen sharing Ctrl+Shift+E
+constexpr Step B2[] = {press(MOD_CTRL | MOD_SHIFT, HID_E)};
+// T4: Alt+Tab
+constexpr Step B4[] = {press(MOD_ALT, HID_TAB)};
+
+// T3 of profile 2 (mail address) is a placeholder and stays unassigned.
+const KeyAction PROFILES[NUM_PROFILES][NUM_KEYS] = {
+    {make(T1), make(T2), make(T3), make(T4)},
+    {make(B1), make(B2), {nullptr, 0}, make(B4)},
+};
+
+uint8_t active = 0;
 
 }  // namespace
 
@@ -73,4 +90,24 @@ void playSteps(const Step* steps, size_t count) {
   }
 }
 
-const KeyAction& actionForKey(uint8_t keyIndex) { return PROFILE[keyIndex]; }
+const KeyAction& actionForKey(uint8_t keyIndex) {
+  // A slot that was written via the protocol wins. A never written slot falls back to the built-in example.
+  if (!profileStore.isUsed(active)) return PROFILES[active][keyIndex];
+  static KeyAction fromStore;
+  const StoredKey& stored = profileStore.key(active, keyIndex);
+  fromStore = {stored.count == 0 ? nullptr : stored.steps, stored.count};
+  return fromStore;
+}
+
+uint8_t activeProfile() { return active; }
+
+bool setActiveProfile(uint8_t index) {
+  if (index >= NUM_PROFILES) return false;
+  active = index;
+  return true;
+}
+
+uint8_t nextProfile() {
+  active = (active + 1) % NUM_PROFILES;
+  return active;
+}
