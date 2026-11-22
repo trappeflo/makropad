@@ -2,13 +2,15 @@
  * Zweck: Abspielen von Schritten über die USB-Tastatur und die eingebaute Beispielbelegung (Issue #24).
  * Inhalt: Der Tastatur-Treiber (Arduino USBHIDKeyboard) wird mit fertigen HID-Reports angesteuert, damit
  *         das Tastaturlayout des Rechners keine Rolle spielt (print() würde US-Codes senden, siehe
- *         docs/hardware-spike.md). Darunter die Beispielbelegung beider Profile als HID-Codes und das aktive Profil (Issue #27).
+ *         docs/hardware-spike.md). Darunter die Beispielbelegung beider Profile als HID-Codes das aktive Profil (Issue #27) und die Auswahl zwischen Slot und Beispiel (Issue #29).
  */
 #include "actions.h"
 
 #include <Arduino.h>
 #include <USB.h>
 #include <USBHIDKeyboard.h>
+
+#include "profile_store.h"
 
 namespace {
 
@@ -88,9 +90,22 @@ void playSteps(const Step* steps, size_t count) {
   }
 }
 
-const KeyAction& actionForKey(uint8_t keyIndex) { return PROFILES[active][keyIndex]; }
+const KeyAction& actionForKey(uint8_t keyIndex) {
+  // A slot that was written via the protocol wins. A never written slot falls back to the built-in example.
+  if (!profileStore.isUsed(active)) return PROFILES[active][keyIndex];
+  static KeyAction fromStore;
+  const StoredKey& stored = profileStore.key(active, keyIndex);
+  fromStore = {stored.count == 0 ? nullptr : stored.steps, stored.count};
+  return fromStore;
+}
 
 uint8_t activeProfile() { return active; }
+
+bool setActiveProfile(uint8_t index) {
+  if (index >= NUM_PROFILES) return false;
+  active = index;
+  return true;
+}
 
 uint8_t nextProfile() {
   active = (active + 1) % NUM_PROFILES;

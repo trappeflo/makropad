@@ -39,12 +39,16 @@ void initKeyboard();
 // Press and release every step in order. Delay steps wait. Blocks until finished.
 void playSteps(const Step* steps, size_t count);
 
-// Action of a key in the active profile. Hard-coded example profiles "Programmierung" and
-// "Büro/Meeting" (docs/anforderungen.md), replaced by profiles in flash once #29 and #30 exist.
+// Action of a key in the active profile. A slot written via the protocol (profile store) wins. A slot
+// that was never written plays the built-in example profiles "Programmierung" and "Büro/Meeting"
+// (docs/anforderungen.md).
 const KeyAction& actionForKey(uint8_t keyIndex);
 
 // Index of the active profile (0 after power-up).
 uint8_t activeProfile();
+
+// Activate a profile by index. Returns false if the index is out of range.
+bool setActiveProfile(uint8_t index);
 
 // Switch to the next profile (wraps around) and return its index.
 uint8_t nextProfile();

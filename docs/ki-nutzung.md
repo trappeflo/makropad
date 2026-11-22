@@ -21,3 +21,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-15 | #21, #23, #24 Firmware-Gerüst, Tasten, HID | Firmware | Gerüst, Entprellen und Abspielen der HID-Schritte, Beispielbelegung nach docs/anforderungen.md | |
 | 2026-11-16 | #26 Drehregler auslesen | Firmware | Quadratur-Dekoder (Zustandstabelle), Einbindung in die Hauptschleife, Debug-Ausgabe | |
 | 2026-11-22 | #27 Profilwechsel in der Firmware | Firmware | Zwei fest eingebaute Profile, aktives Profil, Druck auf den Drehregler (GPIO 13, entprellt) schaltet um, nach meiner Entscheidung (Druck statt Drehen, R4) | |
+| 2026-11-22 | #29 Protokoll-Handler (Firmware) | Firmware | Zeilenleser, Handler für die vier Befehle mit vollständiger Prüfung nach docs/protokoll-v1.md, Profil-Slots im RAM, ArduinoJson (von mir freigegeben) | |

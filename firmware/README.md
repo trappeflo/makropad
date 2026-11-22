@@ -12,7 +12,8 @@ USB-Tastatur senden. Später kommen Drehregler, Profile, Protokoll-Handler und F
 | #24 | USB-HID: Kombination und Text | Schritte (`mod`, `key`, `delay`) nach Protokoll v1, fest eingebaute Beispielbelegung |
 | #26 | Drehregler auslesen | Drehrichtung in `src/encoder.h`, Ausgabe `ENC +1/-1` auf der seriellen Debug-Schnittstelle. Auf Hardware noch nicht getestet |
 | #27 | Profilwechsel | Druck auf den Drehregler, zwei fest eingebaute Profile (PR offen) |
-| #29, #30 | Protokoll-Handler, Flash | offen |
+| #29 | Protokoll-Handler | `device.info`, `profile.get/set/activate` über die serielle Schnittstelle (`src/protocol.cpp`), Profile im RAM (PR offen, nicht am Board getestet). Nie beschriebene Slots spielen die eingebauten Beispielprofile |
+| #30 | Flash | offen |
 
 ## Aufbau
 
