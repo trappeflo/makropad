@@ -1,6 +1,8 @@
 /*
- * Zweck: Auslöser für das Schreiben des Profils auf das Pad (Issue #80).
- * Inhalt: Komponente WriteControls. Slot-Auswahl aus device.info und der Button "Auf das Pad schreiben", nur bei
+ * Zweck: Auslöser für das Schreiben des Profils auf das Pad (Issue #80) und für das Laden eines Slots (Issue #83).
+ * Inhalt: Komponente WriteControls. Slot-Auswahl aus device.info und die Buttons "Auf das Pad schreiben" und
+ *         "Vom Pad laden" (gemeinsame Slot-Auswahl, ein leerer Slot wird gemeldet und lässt den Editor unverändert,
+ *         bei ungespeicherten Änderungen wird vor dem Ersetzen gefragt), nur bei
  *         bestehender Verbindung. Vor dem Schreiben wird der Slot gelesen: enthält er ein anderes Profil (anderer
  *         Name), fragt die Komponente nach. Bei ungültigem Profilnamen ist der Button gesperrt (#85). Danach läuft writeProfile (#14), WriteStatus zeigt den Verlauf, und
  *         nach Erfolg gilt das Profil im Editor als gespeichert.
@@ -9,18 +11,22 @@ import { Alert, Button, Group, Select, Stack, Text } from '@mantine/core'
 import { useState } from 'react'
 import { useDeviceConnection } from '../connection/deviceConnectionContext.ts'
 import { useProfileEditor } from '../model/editorContext.ts'
-import { profileNameError } from '../model/profile.ts'
+import { profileNameError, type Profile } from '../model/profile.ts'
 import { useProfileWrite } from './useProfileWrite.ts'
 import { WriteStatus } from './WriteStatus.tsx'
 
 export function WriteControls() {
   const { state: connection, client } = useDeviceConnection()
-  const { state, dispatch } = useProfileEditor()
+  const { state, dispatch, dirty } = useProfileEditor()
   const { state: writeState, write, reset } = useProfileWrite()
   const [slot, setSlot] = useState('0')
   /** Name of the profile that would be overwritten, while the user is being asked. */
   const [confirming, setConfirming] = useState<string | null>(null)
   const [checkFailed, setCheckFailed] = useState(false)
+  /** Profile read from the pad that waits for the user to accept losing the unsaved changes. */
+  const [replacing, setReplacing] = useState<Profile | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [loadResult, setLoadResult] = useState<{ color: 'green' | 'blue' | 'red'; text: string } | null>(null)
 
   if (connection.status !== 'connected' || client === null) return null
 
@@ -37,10 +43,42 @@ export function WriteControls() {
     if (await write(client, Number(slot), state.profile)) dispatch({ type: 'markSaved' })
   }
 
-  async function start() {
-    if (client === null) return
+  function clearMessages() {
     reset()
     setCheckFailed(false)
+    setConfirming(null)
+    setReplacing(null)
+    setLoadResult(null)
+  }
+
+  function take(profile: Profile) {
+    dispatch({ type: 'load', profile })
+    setReplacing(null)
+    setLoadResult({ color: 'green', text: `„${profile.name}“ aus Profil ${Number(slot) + 1} ist geladen.` })
+  }
+
+  async function startLoad() {
+    if (client === null) return
+    clearMessages()
+    setLoading(true)
+    try {
+      const profile = await client.getProfile(Number(slot))
+      if (profile.name === '') {
+        setLoadResult({ color: 'blue', text: `Profil ${Number(slot) + 1} ist leer, es gibt nichts zu laden.` })
+      } else if (dirty) {
+        setReplacing(profile)
+      } else {
+        take(profile)
+      }
+    } catch {
+      setLoadResult({ color: 'red', text: 'Das Profil ließ sich nicht lesen. Ist das Pad noch verbunden?' })
+    }
+    setLoading(false)
+  }
+
+  async function start() {
+    if (client === null) return
+    clearMessages()
     try {
       // slot = profile: another name in the slot means another profile, which the user should not lose unasked
       const existing = await client.getProfile(Number(slot))
@@ -64,14 +102,26 @@ export function WriteControls() {
           value={slot}
           onChange={(value) => {
             setSlot(value ?? '0')
-            setConfirming(null)
+            clearMessages()
           }}
           allowDeselect={false}
-          disabled={busy}
+          disabled={busy || loading}
           w={160}
         />
-        <Button onClick={start} loading={busy} disabled={confirming !== null || nameError !== null}>
+        <Button
+          onClick={start}
+          loading={busy}
+          disabled={confirming !== null || replacing !== null || loading || nameError !== null}
+        >
           Auf das Pad schreiben
+        </Button>
+        <Button
+          variant="default"
+          onClick={startLoad}
+          loading={loading}
+          disabled={confirming !== null || replacing !== null || busy}
+        >
+          Vom Pad laden
         </Button>
       </Group>
 
@@ -94,6 +144,27 @@ export function WriteControls() {
           </Stack>
         </Alert>
       )}
+
+      {replacing !== null && (
+        <Alert color="yellow" title="Ungespeicherte Änderungen">
+          <Stack gap="xs">
+            <Text size="sm">
+              Das Profil „{state.profile.name}“ im Editor hat Änderungen, die nicht gespeichert sind. Sie gehen verloren,
+              wenn „{replacing.name}“ aus Profil {Number(slot) + 1} geladen wird.
+            </Text>
+            <Group>
+              <Button color="red" size="xs" onClick={() => take(replacing)}>
+                Trotzdem laden
+              </Button>
+              <Button variant="default" size="xs" onClick={() => setReplacing(null)}>
+                Abbrechen
+              </Button>
+            </Group>
+          </Stack>
+        </Alert>
+      )}
+
+      {loadResult !== null && <Alert color={loadResult.color}>{loadResult.text}</Alert>}
 
       {checkFailed && (
         <Alert color="red">Der Slot ließ sich nicht prüfen. Ist das Pad noch verbunden?</Alert>
