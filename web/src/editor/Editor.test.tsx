@@ -2,7 +2,7 @@
  * Zweck: Tests der Editor-Oberfläche (Issue #4).
  * Inhalt: Raster aus der Tastenzahl, Auswahl einer Taste, Belegen mit Label und Typ, Drehknopf ohne Formular,
  *         Schrittzahl und Fehler der Umrechnung (#74),
- *         Umbenennen des Profils (#85).
+ *         Umbenennen des Profils (#85), Neues Profil mit und ohne Rückfrage (#1).
  */
 import { MantineProvider } from '@mantine/core'
 import { render, screen } from '@testing-library/react'
@@ -88,5 +88,40 @@ describe('Editor', () => {
     await user.clear(field)
     await user.type(field, 'Büro Meeting')
     expect(screen.queryByText(/Nur Buchstaben/)).not.toBeInTheDocument()
+  })
+
+  it('starts a new empty profile right away if nothing changed', async () => {
+    const user = setup()
+
+    await user.click(screen.getByRole('button', { name: 'Neues Profil' }))
+
+    expect(screen.queryByText('Ungespeicherte Änderungen')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('Profilname')).toHaveValue('Neues Profil')
+  })
+
+  it('asks before throwing away unsaved changes and keeps them on cancel', async () => {
+    const user = setup()
+    await user.clear(screen.getByLabelText('Profilname'))
+    await user.type(screen.getByLabelText('Profilname'), 'Meeting')
+
+    await user.click(screen.getByRole('button', { name: 'Neues Profil' }))
+    expect(screen.getByText('Ungespeicherte Änderungen')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Abbrechen' }))
+
+    expect(screen.getByLabelText('Profilname')).toHaveValue('Meeting')
+    expect(screen.queryByText('Ungespeicherte Änderungen')).not.toBeInTheDocument()
+  })
+
+  it('resets name and keys after confirming', async () => {
+    const user = setup()
+    await user.clear(screen.getByLabelText('Profilname'))
+    await user.type(screen.getByLabelText('Profilname'), 'Meeting')
+    await user.click(screen.getByRole('button', { name: 'Taste 1' }))
+
+    await user.click(screen.getByRole('button', { name: 'Neues Profil' }))
+    await user.click(screen.getByRole('button', { name: 'Trotzdem neu anlegen' }))
+
+    expect(screen.getByLabelText('Profilname')).toHaveValue('Neues Profil')
+    expect(screen.getByText('Wähle eine Taste, um sie zu belegen.')).toBeInTheDocument()
   })
 })
