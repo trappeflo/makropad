@@ -6,14 +6,17 @@
 import { createContext, useContext } from 'react'
 import type { EditorAction, EditorState } from './profileReducer.ts'
 
+/** What components get from `useProfileEditor`: state, `dispatch` and whether there are unsaved changes. */
 export interface ProfileEditor {
   state: EditorState
   dispatch: (action: EditorAction) => void
   dirty: boolean
 }
 
+/** React context behind `useProfileEditor`, filled by `ProfileProvider`. */
 export const EditorContext = createContext<ProfileEditor | null>(null)
 
+/** The editor state. @throws Error if used outside a `ProfileProvider` */
 export function useProfileEditor(): ProfileEditor {
   const ctx = useContext(EditorContext)
   if (ctx === null) throw new Error('useProfileEditor must be used inside a ProfileProvider')

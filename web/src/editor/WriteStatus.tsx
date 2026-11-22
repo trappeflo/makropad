@@ -53,6 +53,7 @@ function phaseState(state: WriteState, phase: WritePhase): PhaseState {
 
 const MARKS: Record<PhaseState, string> = { pending: '○', running: '…', done: '✓', failed: '✗' }
 
+/** Shows the progress, success or error of a write in plain language. */
 export function WriteStatus({ state }: { state: WriteState }) {
   if (state.status === 'idle') return null
 

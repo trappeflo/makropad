@@ -12,6 +12,7 @@ import { profileNameError } from '../model/profile.ts'
 import { KeyEditor } from './KeyEditor.tsx'
 import { PadView, type Selection } from './PadView.tsx'
 
+/** The editor page: pad view, key form, write controls and backup card. */
 export function Editor() {
   const { state, dispatch } = useProfileEditor()
   const [selection, setSelection] = useState<Selection | null>(null)

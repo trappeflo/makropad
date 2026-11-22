@@ -6,6 +6,7 @@
  */
 import { DEFAULT_LIMITS, type KeyAction, type Profile } from './profile.ts'
 
+/** State of the editor. */
 export interface EditorState {
   /** Profile as currently edited. */
   profile: Profile
@@ -13,6 +14,7 @@ export interface EditorState {
   saved: Profile
 }
 
+/** Changes the editor can make to the profile. */
 export type EditorAction =
   | { type: 'setKey'; index: number; action: KeyAction }
   | { type: 'clearKey'; index: number }
@@ -22,10 +24,12 @@ export type EditorAction =
   /** The current profile was written successfully. The editor is clean afterwards. */
   | { type: 'markSaved' }
 
+/** A profile with `keyCount` empty keys. */
 export function createEmptyProfile(keyCount: number = DEFAULT_LIMITS.keys): Profile {
   return { name: 'Neues Profil', layout: 'de-DE', keys: Array.from({ length: keyCount }, () => null) }
 }
 
+/** Start state: the given profile counts as saved. */
 export function createInitialState(profile: Profile = createEmptyProfile()): EditorState {
   return { profile, saved: profile }
 }
@@ -38,6 +42,7 @@ function inRange(profile: Profile, index: number): boolean {
   return Number.isInteger(index) && index >= 0 && index < profile.keys.length
 }
 
+/** Applies an `EditorAction`. Out-of-range indexes are ignored; validation happens elsewhere (`validateProfile`). */
 export function profileReducer(state: EditorState, action: EditorAction): EditorState {
   switch (action.type) {
     case 'setKey':

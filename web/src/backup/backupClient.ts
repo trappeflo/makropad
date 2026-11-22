@@ -8,6 +8,7 @@
 import { z } from 'zod'
 import { profileSchema, type Profile } from '../model/profile.ts'
 
+/** Kind of failure when talking to the backend, the UI picks its message from it. */
 export type BackupErrorKind =
   /** No answer: the backend is not running, the address is wrong or the network is down. */
   | 'UNREACHABLE'
@@ -20,6 +21,7 @@ export type BackupErrorKind =
   /** The backend answered, but not in the expected format. */
   | 'INVALID_RESPONSE'
 
+/** Failure of a backend call. `kind` tells what went wrong, `message` is ready to show. */
 export class BackupError extends Error {
   readonly kind: BackupErrorKind
   /** One line per broken rule for INVALID, otherwise empty. */
@@ -41,6 +43,7 @@ const problemSchema = z.object({
   errors: z.array(z.object({ field: z.string(), message: z.string() })).optional(),
 })
 
+/** REST client for the profile backup (`/profiles`). The profile name is the key. */
 export class BackupClient {
   private readonly baseUrl: string
   private readonly fetchFn: typeof fetch

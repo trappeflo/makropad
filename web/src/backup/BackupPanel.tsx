@@ -43,6 +43,7 @@ function describe(error: unknown): Problem {
   }
 }
 
+/** Card "Sicherung": back up the edited profile to the backend, load or delete a backed up one. */
 export function BackupPanel({ client = defaultClient }: { client?: BackupClient }) {
   const { state, dispatch, dirty } = useProfileEditor()
   const [profiles, setProfiles] = useState<Profile[] | null>(null)

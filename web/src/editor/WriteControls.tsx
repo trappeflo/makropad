@@ -15,6 +15,7 @@ import { profileNameError, type Profile } from '../model/profile.ts'
 import { useProfileWrite } from './useProfileWrite.ts'
 import { WriteStatus } from './WriteStatus.tsx'
 
+/** Slot choice and write button. Asks before overwriting another profile in the slot. */
 export function WriteControls() {
   const { state: connection, client } = useDeviceConnection()
   const { state, dispatch, dirty } = useProfileEditor()

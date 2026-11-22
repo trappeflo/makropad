@@ -25,6 +25,7 @@ function emptyAction(type: 'combo' | 'text', label: string): KeyAction {
     : { type, label, intent: { text: '', enter: false }, steps: [] }
 }
 
+/** Form for one key: pick an action from the library or enter combo, text or steps by hand. */
 export function KeyEditor({ index, action, dispatch }: KeyEditorProps) {
   const current: ActionType = action === null ? 'none' : action.type
 

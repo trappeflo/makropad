@@ -30,6 +30,7 @@ function toKeyAction(entry: LibraryAction): KeyAction {
     : { type: 'text', label: entry.label, intent: entry.intent, steps: [] }
 }
 
+/** Choose a ready-made action from the library, filtered by program and search text. */
 export function LibraryPicker({ onPick }: LibraryPickerProps) {
   const [program, setProgram] = useState<string | null>(null)
   const [picked, setPicked] = useState<LibraryAction | null>(null)

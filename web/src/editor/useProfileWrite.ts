@@ -8,12 +8,14 @@ import type { Profile } from '../model/profile.ts'
 import type { ProtocolClient } from '../protocol/client.ts'
 import { WriteError, writeProfile, type WritePhase } from '../protocol/writeProfile.ts'
 
+/** State of a write: nothing yet, running (with phase), done or failed. */
 export type WriteState =
   | { status: 'idle' }
   | { status: 'running'; phase: WritePhase }
   | { status: 'success' }
   | { status: 'error'; error: WriteError }
 
+/** Runs `writeProfile` and keeps its state for the UI. */
 export function useProfileWrite() {
   const [state, setState] = useState<WriteState>({ status: 'idle' })
 

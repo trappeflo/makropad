@@ -7,6 +7,7 @@
 import type { MockDevice } from './mockDevice.ts'
 import type { SerialLike, SerialPortLike, SerialReader, SerialWriter } from './serialTransport.ts'
 
+/** Simulated serial port for tests: lines written by the app can be read, answers can be pushed. */
 export class FakeSerialPort implements SerialPortLike {
   opened = false
   /** Everything the app wrote, as text. */
@@ -95,6 +96,7 @@ export class FakeSerialPort implements SerialPortLike {
   }
 }
 
+/** Simulated `navigator.serial` for tests. */
 export class FakeSerial implements SerialLike {
   /** Set to make requestPort fail like a user who closes the dialog. */
   cancelled = false

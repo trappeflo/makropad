@@ -7,6 +7,7 @@ import { useMemo, useReducer, type ReactNode } from 'react'
 import { EditorContext } from './editorContext.ts'
 import { createInitialState, isDirty, profileReducer } from './profileReducer.ts'
 
+/** Holds the edited profile (reducer state) and offers it through `useProfileEditor`. */
 export function ProfileProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(profileReducer, undefined, () => createInitialState())
   const value = useMemo(() => ({ state, dispatch, dirty: isDirty(state) }), [state])

@@ -12,6 +12,7 @@ export interface GridCell {
   colSpan?: number
 }
 
+/** Where the keys and the encoder of a pad sit on the grid. */
 export interface PadLayout {
   id: string
   /** Position of key `index` (index into `Profile.keys`). The array position equals the key index. */
@@ -19,6 +20,7 @@ export interface PadLayout {
   encoder: GridCell
 }
 
+/** Layout with 4 keys (the prototype). */
 export const PAD_4: PadLayout = {
   id: 'pad-4',
   encoder: { row: 1, col: 1, colSpan: 2 },
@@ -30,12 +32,14 @@ export const PAD_4: PadLayout = {
   ],
 }
 
+/** Layout with 9 keys in a 3x3 grid (not built, see scope). */
 export const PAD_9: PadLayout = {
   id: 'pad-9',
   encoder: { row: 1, col: 1, colSpan: 3 },
   keys: Array.from({ length: 9 }, (_, i) => ({ row: 2 + Math.floor(i / 3), col: 1 + (i % 3) })),
 }
 
+/** All known layouts. */
 export const PAD_LAYOUTS: PadLayout[] = [PAD_4, PAD_9]
 
 /** Finds the predefined layout for a number of keys. Returns undefined if there is none. */

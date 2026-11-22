@@ -7,6 +7,7 @@ import { Button, Text } from '@mantine/core'
 import type { PadLayout } from '../model/padLayouts.ts'
 import type { Profile } from '../model/profile.ts'
 
+/** What is selected in the pad view: one key (by index) or the rotary encoder. */
 export type Selection = { kind: 'key'; index: number } | { kind: 'encoder' }
 
 interface PadViewProps {
@@ -16,6 +17,7 @@ interface PadViewProps {
   onSelect: (selection: Selection) => void
 }
 
+/** Draws the pad from a `PadLayout` and reports which key or encoder was clicked. */
 export function PadView({ profile, layout, selection, onSelect }: PadViewProps) {
   const columns = Math.max(...layout.keys.map((c) => c.col + (c.colSpan ?? 1) - 1))
 

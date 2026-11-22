@@ -15,17 +15,20 @@ const base = {
   note: z.string().min(1).optional(),
 }
 
+/** One ready-made action: a key combination or a text, described by intent (not by HID steps). */
 export const libraryActionSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('combo'), ...base, intent: comboIntentSchema }),
   z.object({ type: z.literal('text'), ...base, intent: textIntentSchema }),
 ])
 
+/** Actions of one program or topic. */
 export const libraryGroupSchema = z.object({
   /** Program or topic the actions belong to, e.g. "Browser". */
   name: z.string().min(1),
   actions: z.array(libraryActionSchema).min(1),
 })
 
+/** The whole action library, at least one group. */
 export const librarySchema = z.object({
   groups: z.array(libraryGroupSchema).min(1),
 })

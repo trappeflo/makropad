@@ -42,4 +42,4 @@ im Verzeichnis mit großem Laufwerksbuchstaben (`C:\...`) öffnen, zum Beispiel 
 ## Stand
 
 Profilmodell (#3), Editor (#4), Aktionsbibliothek (#8), Verbindung und Schreiben aufs Pad (#11, #12, #14, #80),
-Sicherung im Backend (#5). Offen: Profil vom Pad laden (#83).
+Sicherung im Backend (#5), Profil vom Pad laden (#83).
