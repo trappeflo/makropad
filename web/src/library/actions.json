@@ -1,0 +1,163 @@
+{
+  "groups": [
+    {
+      "name": "Programmierung",
+      "actions": [
+        {
+          "type": "combo",
+          "label": "Befehlspalette",
+          "description": "Öffnet die Befehlspalette im Editor",
+          "note": "Kürzel von Visual Studio Code",
+          "intent": { "keys": "ctrl+shift+p" }
+        },
+        {
+          "type": "combo",
+          "label": "Datei öffnen",
+          "description": "Springt per Suche zu einer Datei",
+          "note": "Kürzel von Visual Studio Code",
+          "intent": { "keys": "ctrl+p" }
+        },
+        {
+          "type": "combo",
+          "label": "Seitenleiste",
+          "description": "Blendet die Seitenleiste ein oder aus",
+          "note": "Kürzel von Visual Studio Code",
+          "intent": { "keys": "ctrl+b" }
+        },
+        {
+          "type": "combo",
+          "label": "Suche in Dateien",
+          "description": "Öffnet die Suche über alle Dateien",
+          "note": "Kürzel von Visual Studio Code",
+          "intent": { "keys": "ctrl+shift+f" }
+        },
+        {
+          "type": "combo",
+          "label": "Speichern",
+          "description": "Speichert die aktuelle Datei",
+          "intent": { "keys": "ctrl+s" }
+        },
+        {
+          "type": "text",
+          "label": "git status",
+          "description": "Tippt git status und drückt Enter",
+          "note": "Der Fokus muss in einem Terminal liegen",
+          "intent": { "text": "git status", "enter": true }
+        },
+        {
+          "type": "text",
+          "label": "git pull",
+          "description": "Tippt git pull und drückt Enter",
+          "note": "Der Fokus muss in einem Terminal liegen",
+          "intent": { "text": "git pull", "enter": true }
+        }
+      ]
+    },
+    {
+      "name": "Browser",
+      "actions": [
+        {
+          "type": "combo",
+          "label": "Neuer Tab",
+          "description": "Öffnet einen neuen Tab",
+          "intent": { "keys": "ctrl+t" }
+        },
+        {
+          "type": "combo",
+          "label": "Tab schließen",
+          "description": "Schließt den aktuellen Tab",
+          "intent": { "keys": "ctrl+w" }
+        },
+        {
+          "type": "combo",
+          "label": "Tab wiederherstellen",
+          "description": "Öffnet den zuletzt geschlossenen Tab erneut",
+          "intent": { "keys": "ctrl+shift+t" }
+        },
+        {
+          "type": "combo",
+          "label": "Adressleiste",
+          "description": "Setzt den Fokus in die Adressleiste",
+          "intent": { "keys": "ctrl+l" }
+        },
+        {
+          "type": "combo",
+          "label": "Seite neu laden",
+          "description": "Lädt die aktuelle Seite neu",
+          "intent": { "keys": "f5" }
+        },
+        {
+          "type": "combo",
+          "label": "Zurück",
+          "description": "Geht zur vorherigen Seite",
+          "intent": { "keys": "alt+left" }
+        }
+      ]
+    },
+    {
+      "name": "Windows und Office",
+      "actions": [
+        {
+          "type": "combo",
+          "label": "Kopieren",
+          "description": "Kopiert die Auswahl",
+          "intent": { "keys": "ctrl+c" }
+        },
+        {
+          "type": "combo",
+          "label": "Einfügen",
+          "description": "Fügt den Inhalt der Zwischenablage ein",
+          "intent": { "keys": "ctrl+v" }
+        },
+        {
+          "type": "combo",
+          "label": "Ausschneiden",
+          "description": "Schneidet die Auswahl aus",
+          "intent": { "keys": "ctrl+x" }
+        },
+        {
+          "type": "combo",
+          "label": "Rückgängig",
+          "description": "Macht die letzte Änderung rückgängig",
+          "intent": { "keys": "ctrl+z" }
+        },
+        {
+          "type": "combo",
+          "label": "Wiederholen",
+          "description": "Stellt die zuletzt rückgängig gemachte Änderung wieder her",
+          "intent": { "keys": "ctrl+y" }
+        },
+        {
+          "type": "combo",
+          "label": "Alles auswählen",
+          "description": "Wählt den gesamten Inhalt aus",
+          "intent": { "keys": "ctrl+a" }
+        },
+        {
+          "type": "combo",
+          "label": "Fensterwechsel",
+          "description": "Wechselt zum nächsten Fenster",
+          "intent": { "keys": "alt+tab" }
+        },
+        {
+          "type": "combo",
+          "label": "Desktop anzeigen",
+          "description": "Blendet alle Fenster aus oder wieder ein",
+          "intent": { "keys": "win+d" }
+        },
+        {
+          "type": "combo",
+          "label": "Bildschirmausschnitt",
+          "description": "Startet das Ausschneiden eines Bildschirmbereichs",
+          "intent": { "keys": "win+shift+s" }
+        },
+        {
+          "type": "text",
+          "label": "Mailadresse",
+          "description": "Tippt eine Mailadresse (Platzhalter, im Editor anpassen)",
+          "intent": { "text": "max.muster@example.com", "enter": false }
+        }
+      ]
+    }
+  ]
+}
