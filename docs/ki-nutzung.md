@@ -37,6 +37,7 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-17 | #81 Prozess-Log KW 1 | Docs | Interviewfragen zum Wochenstand, Entwurf der Formulierungen nach meinen Antworten (Stunden, Probleme, Erkenntnisse) | |
 | 2026-11-17 | #85 Profilname im Editor | Web | Eingabefeld mit Fehlerhinweis, profileNameError, Sperre des Schreiben-Buttons und Tests | |
 | 2026-11-17 | #87 ADR 0006 Profilfarbe | Docs | Entwurf von Optionen und Folgen nach meiner Vorgabe (LED-Farbe je Profil, optionales Feld), Begründung als Entwurf markiert | |
+| 2026-11-18 | #83 Profil vom Pad laden | Web | Button "Vom Pad laden" in WriteControls (gemeinsame Slot-Auswahl, Hinweis bei leerem Slot, Rückfrage bei ungespeicherten Änderungen) mit Tests nach meinen Entscheidungen (gemeinsame Auswahl, leerer Slot lässt den Editor unverändert) | |
 | 2026-11-22 | #44 Minimale CI | Docs | GitHub-Actions-Workflow für Web (Lint, Build, Test), Backend (verify) und Secret-Scan (gitleaks) | |
 | 2026-11-22 | #98 Prozess-Log Nachtrag KW 1 | Docs | Formulierungsvorschlag für Rückblick und Plan KW 2 nach meinen Antworten im Interview (Stunden bestätigt, Hardware gut, Review-Stapel als Engpass) | |
 | 2026-11-22 | #31 Rauchtest für den Parallelbetrieb | Firmware | Python-Skript smoke_test.py (Protokoll-Befehle, Fehlerfälle, Anfragen während Tastendrücken), nicht ausgeführt | |
