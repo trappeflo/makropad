@@ -2,7 +2,7 @@
  * Zweck: Abspielen von Schritten über die USB-Tastatur und die eingebaute Beispielbelegung (Issue #24).
  * Inhalt: Der Tastatur-Treiber (Arduino USBHIDKeyboard) wird mit fertigen HID-Reports angesteuert, damit
  *         das Tastaturlayout des Rechners keine Rolle spielt (print() würde US-Codes senden, siehe
- *         docs/hardware-spike.md). Darunter die Beispielbelegung von Profil 1 als HID-Codes.
+ *         docs/hardware-spike.md). Darunter die Beispielbelegung beider Profile als HID-Codes und das aktive Profil (Issue #27).
  */
 #include "actions.h"
 
@@ -52,7 +52,22 @@ constexpr KeyAction make(const Step (&steps)[N]) {
   return {steps, N};
 }
 
-const KeyAction PROFILE[NUM_KEYS] = {make(T1), make(T2), make(T3), make(T4)};
+// Profile 2 "Büro/Meeting" (docs/anforderungen.md)
+constexpr uint8_t HID_TAB = 0x2B;
+// T1: Teams mute Ctrl+Shift+M
+constexpr Step B1[] = {press(MOD_CTRL | MOD_SHIFT, HID_M)};
+// T2: Teams screen sharing Ctrl+Shift+E
+constexpr Step B2[] = {press(MOD_CTRL | MOD_SHIFT, HID_E)};
+// T4: Alt+Tab
+constexpr Step B4[] = {press(MOD_ALT, HID_TAB)};
+
+// T3 of profile 2 (mail address) is a placeholder and stays unassigned.
+const KeyAction PROFILES[NUM_PROFILES][NUM_KEYS] = {
+    {make(T1), make(T2), make(T3), make(T4)},
+    {make(B1), make(B2), {nullptr, 0}, make(B4)},
+};
+
+uint8_t active = 0;
 
 }  // namespace
 
@@ -73,4 +88,11 @@ void playSteps(const Step* steps, size_t count) {
   }
 }
 
-const KeyAction& actionForKey(uint8_t keyIndex) { return PROFILE[keyIndex]; }
+const KeyAction& actionForKey(uint8_t keyIndex) { return PROFILES[active][keyIndex]; }
+
+uint8_t activeProfile() { return active; }
+
+uint8_t nextProfile() {
+  active = (active + 1) % NUM_PROFILES;
+  return active;
+}

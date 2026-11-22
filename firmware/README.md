@@ -11,7 +11,7 @@ USB-Tastatur senden. Später kommen Drehregler, Profile, Protokoll-Handler und F
 | #23 | Tasten einlesen und entprellen | 4 Tasten, interner Pull-up, Entprellen in `src/debouncer.h` |
 | #24 | USB-HID: Kombination und Text | Schritte (`mod`, `key`, `delay`) nach Protokoll v1, fest eingebaute Beispielbelegung |
 | #26 | Drehregler auslesen | Drehrichtung in `src/encoder.h`, Ausgabe `ENC +1/-1` auf der seriellen Debug-Schnittstelle. Auf Hardware noch nicht getestet |
-| #27 | Profilwechsel | offen |
+| #27 | Profilwechsel | Druck auf den Drehregler, zwei fest eingebaute Profile (PR offen) |
 | #29, #30 | Protokoll-Handler, Flash | offen |
 
 ## Aufbau
@@ -35,7 +35,7 @@ Jede Taste liegt zwischen GPIO und GND, der interne Pull-up genügt (LOW = gedr�
 | Taste | GPIO |
 |---|---|
 | T1 bis T4 | 1, 2, 4, 5 |
-| Drehregler A / B | 11 / 12 (Taster auf 13 noch nicht in der Firmware) |
+| Drehregler A / B | 11 / 12 (Taster auf 13 schaltet das Profil um) |
 
 ## Bauen und flashen
 
