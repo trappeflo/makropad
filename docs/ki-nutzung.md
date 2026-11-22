@@ -33,3 +33,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-17 | #81 Prozess-Log KW 1 | Docs | Interviewfragen zum Wochenstand, Entwurf der Formulierungen nach meinen Antworten (Stunden, Probleme, Erkenntnisse) | |
 | 2026-11-17 | #85 Profilname im Editor | Web | Eingabefeld mit Fehlerhinweis, profileNameError, Sperre des Schreiben-Buttons und Tests | |
 | 2026-11-17 | #5 Anbindung an das Backend | Web, Backend | REST-Client mit Fehlerarten, Karte "Sicherung" (Sichern mit Rückfrage bei vergebenem Namen, Laden, Löschen) und CORS-Konfiguration im Backend mit Tests nach meinen Entscheidungen (CORS im Backend statt Proxy, Rückfrage bei 409, eigene Karte) | |
+| 2026-11-22 | #98 Prozess-Log Nachtrag KW 1 | Docs | Formulierungsvorschlag für Rückblick und Plan KW 2 nach meinen Antworten im Interview (Stunden bestätigt, Hardware gut, Review-Stapel als Engpass) | |
