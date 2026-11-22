@@ -21,6 +21,18 @@ npm run build      # Typprüfung und Produktionsbuild
 npm run lint       # Lint
 ```
 
+## Backend für die Sicherung
+
+Die Karte "Sicherung" spricht das Backend an (`backend/`, Port 8080, siehe [Backend-README](../backend/README.md)).
+Ohne laufendes Backend bleibt der Rest der App benutzbar, nur Sichern und Laden melden dann, dass das Backend
+nicht erreichbar ist. Die Adresse lässt sich beim Start überschreiben, Standard ist `http://localhost:8080`:
+
+```
+VITE_BACKEND_URL=http://localhost:8080 npm run dev
+```
+
+Das Backend erlaubt den Zugriff nur von der Herkunft der Web-App (CORS), siehe dort.
+
 ## Hinweis zu Windows
 
 Schlägt `npm test` mit `Cannot read properties of undefined (reading 'config')` fehl, ist im Arbeitsverzeichnis
@@ -29,5 +41,5 @@ im Verzeichnis mit großem Laufwerksbuchstaben (`C:\...`) öffnen, zum Beispiel 
 
 ## Stand
 
-Gerüst mit Platzhalterseite und Test-Setup. Profilmodell (#3), Editor (#4), Backend-Anbindung (#5)
-und WebSerial (#11) folgen.
+Profilmodell (#3), Editor (#4), Aktionsbibliothek (#8), Verbindung und Schreiben aufs Pad (#11, #12, #14, #80),
+Sicherung im Backend (#5). Offen: Profil vom Pad laden (#83).
