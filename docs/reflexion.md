@@ -31,7 +31,7 @@ softwareseitig umgesetzt, nicht belegt.
 | Stunden KW 1 | 5 h | ca. 15 h (geschätzt), siehe [Prozess-Log](prozess-log.md) |
 | Stunden KW 2 bis 6 | laut Plan | `[offen]`, KW 2 läuft noch |
 | Hardware | Prototyp laut Plan später | mehrere Iterationen im 3D-Druck, Löten dauert länger als gedacht, da der Autor darin noch wenig geübt ist |
-| Umsetzungszeit | `[offen]` | höher als geplant (Aussage des Autors, Größe `[offen]`) |
+| Umsetzungszeit | `[offen]` | höher als geplant (vom Autor bestätigt, Größe `[offen]`) |
 | Funktionen | Wechsel per Drehregler (Z2), LED für das aktive Profil (R8) | Wechsel per Druck auf den Drehregler (R4), LED nur Could, Profilfarbe als ADR 0006 |
 
 Als Abweichung nennt der Autor die Umsetzungszeit sowie Änderungen bei LED und Profilwechsel. Die genaue
@@ -43,8 +43,8 @@ Reihenfolge und die Gründe für den Profilwechsel per Druck stehen in den Anfor
 - **Hardware früher planen.** Aussage des Autors. Mehrere Iterationen im 3D-Druck und eine längere Lötzeit haben
   den Zeitplan belastet, weil viele Aufgaben auf funktionierende Hardware warten.
 - **Review und Klärung der Anforderungen kosten viel Zeit.** Aussage des Autors: Hätte er den Code durchgehend
-  selbst geschrieben, wäre dieser Aufwand vermutlich geringer ausgefallen. `[offen]`: der Autor bestätigt, ob so
-  gemeint, und ergänzt, ob sich der Aufwand am Ende trotzdem gelohnt hat.
+  selbst geschrieben, wäre dieser Aufwand vermutlich geringer ausgefallen. Vom Autor bestätigt. `[offen]`: ob sich der
+  Aufwand am Ende trotzdem gelohnt hat.
 - **Überraschungen.** `[offen]`, dem Autor fiel dazu bisher nichts ein.
 - **Beste Entscheidung bisher.** `[offen]`, dem Autor fiel dazu bisher nichts ein. Kandidaten aus dem Repo, die der
   Autor bewerten kann: Mock des Geräts, ADRs vor der Umsetzung, Hardware-Spike.
