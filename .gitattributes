@@ -1,1 +1,3 @@
 * text=auto eol=lf
+# Tabelle wird von vielen Branches am Ende erweitert: bei Konflikten beide Seiten behalten (nur lokale Merges)
+docs/ki-nutzung.md merge=union
