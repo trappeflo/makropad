@@ -1,7 +1,8 @@
 /*
- * Zweck: Tests des Schreiben-Buttons im Editor (Issue #80).
+ * Zweck: Tests des Schreiben-Buttons (Issue #80) und des Buttons "Vom Pad laden" (Issue #83) im Editor.
  * Inhalt: Button nur bei Verbindung, Schreiben in den gewählten Slot, Rückfrage bei einem anderen Profil im Slot,
  *         kein Rückfragen beim gleichen Profilnamen, Abbrechen, Fehlermeldung und Editor danach "gespeichert".
+ *         Laden: Übernahme eines Slots in den Editor, leerer Slot, Rückfrage bei ungespeicherten Änderungen, Fehler.
  *         Gegenstelle ist der simulierte Port mit MockDevice.
  */
 import { MantineProvider } from '@mantine/core'
@@ -165,5 +166,105 @@ describe('WriteControls', () => {
 
     await screen.findByText(/beim Zurücklesen bestätigt/)
     expect(device.profiles[0].name).toBe('Büro')
+  })
+
+  describe('Vom Pad laden', () => {
+    const nameField = () => screen.getByRole('textbox', { name: 'Profilname' })
+
+    it('takes the profile of the slot into a clean editor without asking', async () => {
+      const device = new MockDevice()
+      device.profiles[0] = other
+      const { user } = await setup(device)
+      await connect(user)
+
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+
+      expect(await screen.findByText('„Büro“ aus Profil 1 ist geladen.')).toBeInTheDocument()
+      expect(nameField()).toHaveValue('Büro')
+      expect(screen.getByText('gespeichert')).toBeInTheDocument()
+      expect(screen.queryByText('Ungespeicherte Änderungen')).not.toBeInTheDocument()
+    })
+
+    it('reads the slot that was chosen', async () => {
+      const device = new MockDevice()
+      device.profiles[1] = other
+      const { user } = await setup(device)
+      await connect(user)
+
+      await user.click(screen.getByRole('combobox', { name: 'Slot auf dem Pad' }))
+      await user.click(await screen.findByRole('option', { name: 'Profil 2', hidden: true }))
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+
+      expect(await screen.findByText('„Büro“ aus Profil 2 ist geladen.')).toBeInTheDocument()
+      expect(nameField()).toHaveValue('Büro')
+    })
+
+    it('says so for an empty slot and leaves the editor alone', async () => {
+      const { user } = await setup()
+      await connect(user)
+      await editKey(user)
+
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+
+      expect(await screen.findByText('Profil 1 ist leer, es gibt nichts zu laden.')).toBeInTheDocument()
+      expect(nameField()).toHaveValue('Neues Profil')
+      expect(screen.getByText('ungespeichert')).toBeInTheDocument()
+      expect(screen.queryByText('Ungespeicherte Änderungen')).not.toBeInTheDocument()
+    })
+
+    it('asks before replacing unsaved changes and loads after confirmation', async () => {
+      const device = new MockDevice()
+      device.profiles[0] = other
+      const { user } = await setup(device)
+      await connect(user)
+      await editKey(user)
+
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+      expect(await screen.findByText('Ungespeicherte Änderungen')).toBeInTheDocument()
+      expect(nameField()).toHaveValue('Neues Profil')
+
+      await user.click(screen.getByRole('button', { name: 'Trotzdem laden' }))
+      expect(nameField()).toHaveValue('Büro')
+      expect(screen.getByText('gespeichert')).toBeInTheDocument()
+    })
+
+    it('keeps the unsaved changes if the user cancels', async () => {
+      const device = new MockDevice()
+      device.profiles[0] = other
+      const { user } = await setup(device)
+      await connect(user)
+      await editKey(user)
+
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+      await user.click(await screen.findByRole('button', { name: 'Abbrechen' }))
+
+      expect(screen.queryByText('Ungespeicherte Änderungen')).not.toBeInTheDocument()
+      expect(nameField()).toHaveValue('Neues Profil')
+      expect(screen.getByText('ungespeichert')).toBeInTheDocument()
+    })
+
+    it('does not write anything to the pad', async () => {
+      const device = new MockDevice()
+      device.profiles[0] = other
+      const { user } = await setup(device)
+      await connect(user)
+
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+      await screen.findByText('„Büro“ aus Profil 1 ist geladen.')
+
+      expect(device.received.map((line) => JSON.parse(line).cmd)).toEqual(['device.info', 'profile.get'])
+    })
+
+    it('reports a slot that cannot be read and leaves the editor alone', async () => {
+      const { user, device } = await setup()
+      await connect(user)
+      await editKey(user)
+      device.failNextWith('STORAGE_FAILED')
+
+      await user.click(screen.getByRole('button', { name: 'Vom Pad laden' }))
+
+      expect(await screen.findByText(/Das Profil ließ sich nicht lesen/)).toBeInTheDocument()
+      expect(screen.getByText('ungespeichert')).toBeInTheDocument()
+    })
   })
 })
