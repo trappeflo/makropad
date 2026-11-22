@@ -12,6 +12,7 @@ export interface DeviceLimits {
   maxSteps: number
 }
 
+/** Limits assumed until the pad reports its own with `device.info`. */
 export const DEFAULT_LIMITS: DeviceLimits = { keys: 4, maxSteps: 32 }
 
 /** Press and release a key with modifiers (HID modifier bitmask and HID usage id). */
@@ -25,6 +26,7 @@ const delayStepSchema = z.object({
   delay: z.number().int().min(0).max(10_000),
 })
 
+/** One step of a key action: a key press or a delay. */
 export const stepSchema = z.union([keyStepSchema, delayStepSchema])
 
 const baseKey = {
@@ -71,6 +73,7 @@ export function profileNameError(name: string): string | null {
   return null
 }
 
+/** A profile as in protocol v1, section 4 (name, layout, keys). */
 export const profileSchema = z.object({
   name: nameSchema,
   layout: z.literal('de-DE'),
@@ -81,6 +84,7 @@ export type Step = z.infer<typeof stepSchema>
 export type KeyAction = z.infer<typeof keyActionSchema>
 export type Profile = z.infer<typeof profileSchema>
 
+/** One broken rule with the path of the field. */
 export interface ValidationError {
   /** Path to the faulty field, e.g. `keys[2].steps`. */
   path: string

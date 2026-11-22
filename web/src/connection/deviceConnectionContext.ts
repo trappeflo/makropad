@@ -6,6 +6,7 @@
 import { createContext, useContext } from 'react'
 import type { DeviceInfo, ProtocolClient } from '../protocol/client.ts'
 
+/** State of the connection to the pad. `connected` carries the answer of `device.info`. */
 export type ConnectionState =
   | { status: 'unsupported' }
   /** `notice` explains why an existing connection ended, e.g. the pad was unplugged. */
@@ -14,6 +15,7 @@ export type ConnectionState =
   | { status: 'connected'; info: DeviceInfo }
   | { status: 'error'; message: string }
 
+/** What components get from `useDeviceConnection`: state, protocol client and the two actions. */
 export interface DeviceConnection {
   state: ConnectionState
   /** Only set while connected. */
@@ -22,8 +24,10 @@ export interface DeviceConnection {
   disconnect: () => Promise<void>
 }
 
+/** React context behind `useDeviceConnection`, filled by `DeviceConnectionProvider`. */
 export const DeviceConnectionContext = createContext<DeviceConnection | null>(null)
 
+/** The connection to the pad. @throws Error if used outside a `DeviceConnectionProvider` */
 export function useDeviceConnection(): DeviceConnection {
   const value = useContext(DeviceConnectionContext)
   if (value === null) throw new Error('useDeviceConnection needs a DeviceConnectionProvider.')

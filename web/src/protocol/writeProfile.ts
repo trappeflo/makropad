@@ -11,6 +11,7 @@ import { ProtocolError, type ProtocolClient, type ProtocolErrorCode } from './cl
 
 /** The phases in the order they run. */
 export const WRITE_PHASES = ['info', 'validate', 'write', 'readback', 'compare'] as const
+/** Phase of a write, reported to the progress callback. */
 export type WritePhase = (typeof WRITE_PHASES)[number]
 
 export type WriteErrorCode =

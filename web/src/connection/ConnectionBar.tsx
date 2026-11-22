@@ -7,6 +7,7 @@
 import { Alert, Badge, Button, Group, Stack, Text } from '@mantine/core'
 import { useDeviceConnection } from './deviceConnectionContext.ts'
 
+/** Status bar with connect/disconnect button and the state of the pad connection. */
 export function ConnectionBar() {
   const { state, connect, disconnect } = useDeviceConnection()
 

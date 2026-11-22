@@ -6,12 +6,14 @@
  */
 import type { Transport } from './transport.ts'
 
+/** The part of a Web Serial reader that `SerialTransport` uses. */
 export interface SerialReader {
   read(): Promise<{ done: boolean; value?: Uint8Array }>
   cancel(): Promise<void>
   releaseLock(): void
 }
 
+/** The part of a Web Serial writer that `SerialTransport` uses. */
 export interface SerialWriter {
   write(chunk: Uint8Array): Promise<void>
   releaseLock(): void
@@ -51,6 +53,7 @@ export class LineSplitter {
   }
 }
 
+/** Line-based `Transport` over a Web Serial port. */
 export class SerialTransport implements Transport {
   private readonly lineListeners = new Set<(line: string) => void>()
   private readonly closeListeners = new Set<() => void>()

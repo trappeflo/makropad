@@ -29,6 +29,7 @@ interface ProviderProps {
   timeoutMs?: number
 }
 
+/** Owns the serial connection to the pad and offers it to the app through `useDeviceConnection`. */
 export function DeviceConnectionProvider({ children, serial = getSerial(), timeoutMs }: ProviderProps) {
   const [state, setState] = useState<ConnectionState>(serial === undefined ? { status: 'unsupported' } : { status: 'disconnected' })
   const [client, setClient] = useState<ProtocolClient | null>(null)

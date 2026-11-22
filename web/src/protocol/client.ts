@@ -9,6 +9,7 @@ import { z } from 'zod'
 import { profileSchema, type Profile } from '../model/profile.ts'
 import type { Transport } from './transport.ts'
 
+/** Protocol version this client speaks (docs/protokoll-v1.md). */
 export const PROTOCOL_VERSION = 1
 
 /**
@@ -43,6 +44,7 @@ const PAD_CODES: readonly string[] = [
   'BUSY',
 ]
 
+/** Failure of a protocol call, either reported by the pad or detected by the client. */
 export class ProtocolError extends Error {
   readonly code: ProtocolErrorCode
 
@@ -62,6 +64,7 @@ const failureSchema = envelopeSchema.extend({
 
 const successSchema = envelopeSchema.extend({ ok: z.literal(true) })
 
+/** Answer of `device.info`: firmware, protocol version and limits of the pad. */
 export const deviceInfoSchema = z.object({
   protocol: z.number().int(),
   firmware: z.string(),
@@ -80,6 +83,7 @@ export type DeviceInfo = z.infer<typeof deviceInfoSchema>
 /** A slot that was never written is returned with an empty name, so the name check is relaxed for reading. */
 const padProfileSchema = profileSchema.extend({ name: z.union([z.literal(''), profileSchema.shape.name]) })
 
+/** Options of `ProtocolClient`. */
 export interface ProtocolClientOptions {
   /** Time to wait for a response. Defaults to {@link DEFAULT_TIMEOUT_MS}. */
   timeoutMs?: number
@@ -90,6 +94,7 @@ interface Pending {
   reject: (error: ProtocolError) => void
 }
 
+/** Speaks protocol v1 over a `Transport`: one request at a time, answers matched by id. */
 export class ProtocolClient {
   private readonly transport: Transport
   private readonly timeoutMs: number

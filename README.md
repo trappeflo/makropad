@@ -19,8 +19,20 @@ liegt auf der Software (Web-Anwendung und Backend), die Firmware ist bewusst min
 
 ## Stand
 
-Das Projekt befindet sich in der Anfangsphase (Meilenstein M1: Setup und Definition).
-Planung und Fortschritt stehen in den [Issues](../../issues) und [Meilensteinen](../../milestones).
+Web-Anwendung (Editor, Aktionsbibliothek, Schreiben und Laden über WebSerial, Sicherung im Backend), Backend
+(Profil-API mit OpenAPI) und Firmware (Tasten, Drehregler, Profilwechsel, Protokoll-Handler, Ablage im Flash)
+sind umgesetzt. Offen sind vor allem die Integration auf der Hardware, Architektur-Diagramme, Teststrategie
+und die Abgabeunterlagen. Planung und Fortschritt stehen in den [Issues](../../issues) und
+[Meilensteinen](../../milestones).
+
+## Code-Dokumentation
+
+| Bereich | Wo | Wie |
+|---|---|---|
+| Backend | OpenAPI und Swagger UI unter `/swagger-ui.html`, Javadoc | [backend/README.md](backend/README.md) |
+| Web | TSDoc an den exportierten Funktionen, Typen und Komponenten, Kurzbeschreibung der Bibliothek | [web/README.md](web/README.md) |
+| Protokoll | Spezifikation; Firmware-Handler und Web-Client verweisen im Dateikopf darauf | [docs/protokoll-v1.md](docs/protokoll-v1.md) |
+| Firmware | Dateikopf je Datei, Kommentare an den Schnittstellen | [firmware/README.md](firmware/README.md) |
 
 ## Vorgehen
 

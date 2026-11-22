@@ -8,6 +8,7 @@
 import { profileSchema, type Profile } from '../model/profile.ts'
 import type { Transport } from './transport.ts'
 
+/** Options of `MockDevice`, including hooks to provoke error cases. */
 export interface MockDeviceOptions {
   protocol?: number
   firmware?: string
@@ -26,6 +27,7 @@ class RequestError extends Error {
   }
 }
 
+/** Simulated pad as a `Transport` that answers like the firmware (including the protocol error codes). */
 export class MockDevice implements Transport {
   /** Profile slots as the pad stores them. A slot that was never written is empty. */
   readonly profiles: Profile[]

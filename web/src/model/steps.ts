@@ -6,6 +6,7 @@
  */
 import type { KeyAction, Step } from './profile.ts'
 
+/** Result of converting an intent to steps: the steps or a message to show. */
 export type StepsResult = { ok: true; steps: Step[] } | { ok: false; error: string }
 
 /** HID modifier bits. `altgr` is the right Alt key, which a German layout uses for @ { } [ ] \ | ~ and €. */
