@@ -2,6 +2,7 @@ package dev.makropad.backend.profile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
@@ -25,6 +26,14 @@ import java.util.Map;
  * @param layout Tastaturlayout, im MVP nur {@code de-DE}
  * @param keys   eine Aktion je Taste, {@code null} steht für eine unbelegte Taste
  */
+@Schema(example = """
+        {"name":"Programmierung","layout":"de-DE","keys":[
+          {"type":"combo","label":"Befehlspalette","intent":{"keys":"ctrl+shift+p"},"steps":[{"mod":3,"key":19}]},
+          {"type":"text","label":"git status","intent":{"text":"git status","enter":true},
+           "steps":[{"key":10},{"delay":50},{"key":40}]},
+          null,
+          null]}
+        """)
 public record Profile(
         @NotBlank
         @Size(max = Profile.NAME_MAX_LENGTH)

@@ -19,6 +19,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /** Wird von Spring benötigt. */
+    public ApiExceptionHandler() {
+    }
+
     /**
      * Profil nicht gefunden.
      *

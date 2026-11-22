@@ -43,14 +43,29 @@ public class ProfileEntity {
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * Liefert den Namen.
+     *
+     * @return Name des Profils, zugleich Schlüssel
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Liefert den Inhalt.
+     *
+     * @return Profil als JSON
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * Liefert den Zeitpunkt der letzten Änderung.
+     *
+     * @return Zeitpunkt der letzten Änderung
+     */
     public Instant getUpdatedAt() {
         return updatedAt;
     }
