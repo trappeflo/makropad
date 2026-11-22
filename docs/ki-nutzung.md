@@ -19,6 +19,10 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-11 | #2 Web-Gerüst | Web | Erzeugung des Gerüsts mit Vite, Einrichtung von Vitest, Platzhalterseite, README | |
 | 2026-11-11 | #43 Hardware-Spike | Firmware | Testsketche, Auswertung der Messungen am Board, Ergebnisdokument | |
 | 2026-11-15 | #21, #23, #24 Firmware-Gerüst, Tasten, HID | Firmware | Gerüst, Entprellen und Abspielen der HID-Schritte, Beispielbelegung nach docs/anforderungen.md | |
+| 2026-11-16 | #26 Drehregler auslesen | Firmware | Quadratur-Dekoder (Zustandstabelle), Einbindung in die Hauptschleife, Debug-Ausgabe | |
+| 2026-11-22 | #27 Profilwechsel in der Firmware | Firmware | Zwei fest eingebaute Profile, aktives Profil, Druck auf den Drehregler (GPIO 13, entprellt) schaltet um, nach meiner Entscheidung (Druck statt Drehen, R4) | |
+| 2026-11-22 | #29 Protokoll-Handler (Firmware) | Firmware | Zeilenleser, Handler für die vier Befehle mit vollständiger Prüfung nach docs/protokoll-v1.md, Profil-Slots im RAM, ArduinoJson (von mir freigegeben) | |
+| 2026-11-22 | #30 Profile im Flash speichern | Firmware | NVS-Ablage der Profiltexte, Laden und erneute Prüfung beim Start, Auslagern der Profilprüfung in profile_parser | |
 | 2026-11-16 | #3 Profilmodell (Typen, Validierung) | Web | Zod-Schemas nach meinen Entscheidungen (diskriminierte Union, Zod, Grenzen als Parameter), Tests | |
 | 2026-11-16 | #3 Zustandsverwaltung des Editors | Web | Reducer, Context und Tests nach meinen Entscheidungen (setKey/clearKey, dirty per Vergleich, ohne Validierung im Reducer, leeres Startprofil) | |
 | 2026-11-16 | #7 Aktionsbibliothek (Struktur und Inhalte) | Web | Schema, Datei mit Beispielaktionen für drei Gruppen, Tests und Kurzbeschreibung nach meinen Entscheidungen (nur intent, Gruppen, Felder) | |
@@ -33,3 +37,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-17 | #81 Prozess-Log KW 1 | Docs | Interviewfragen zum Wochenstand, Entwurf der Formulierungen nach meinen Antworten (Stunden, Probleme, Erkenntnisse) | |
 | 2026-11-17 | #85 Profilname im Editor | Web | Eingabefeld mit Fehlerhinweis, profileNameError, Sperre des Schreiben-Buttons und Tests | |
 | 2026-11-22 | #98 Prozess-Log Nachtrag KW 1 | Docs | Formulierungsvorschlag für Rückblick und Plan KW 2 nach meinen Antworten im Interview (Stunden bestätigt, Hardware gut, Review-Stapel als Engpass) | |
+| 2026-11-22 | #31 Rauchtest für den Parallelbetrieb | Firmware | Python-Skript smoke_test.py (Protokoll-Befehle, Fehlerfälle, Anfragen während Tastendrücken), nicht ausgeführt | |
