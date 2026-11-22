@@ -2,8 +2,8 @@
  * Zweck: Profile im Pad speichern und für die Tasten bereithalten (Issues #29, #30).
  * Inhalt: Datentypen StoredKey und StoredProfile sowie die Klasse ProfileStore mit den Profil-Slots.
  *         Je Slot liegen der Profiltext (unverändert wie empfangen, für profile.get) und die daraus
- *         gelesenen Schritte je Taste (maßgeblich für das Abspielen). Im Moment nur im RAM, das
- *         dauerhafte Speichern folgt mit #30.
+ *         gelesenen Schritte je Taste (maßgeblich für das Abspielen). Der Profiltext liegt zusätzlich im
+ *         Flash (NVS, Issue #30) und wird beim Start gelesen und neu geprüft.
  */
 #pragma once
 
@@ -33,14 +33,20 @@ class ProfileStore {
   const String& json(uint8_t index) const { return slots_[index].json; }
   const StoredKey& key(uint8_t index, uint8_t keyIndex) const { return slots_[index].keys[keyIndex]; }
 
-  // Store a checked profile in a slot. Returns false if storing failed, the old profile stays then.
+  // Open the flash storage and load the stored profiles. Call it once in setup(). If the flash cannot be
+  // opened, the store works in RAM only (persistent() is false).
+  void begin();
+
+  // Store a checked profile in a slot (flash first, then RAM). Returns false if storing failed, the old
+  // profile stays then.
   bool save(uint8_t index, StoredProfile&& profile);
 
   // true = profiles survive a restart (flash), false = RAM only.
-  bool persistent() const { return false; }
+  bool persistent() const { return persistent_; }
 
  private:
   StoredProfile slots_[NUM_PROFILES];
+  bool persistent_ = false;
 };
 
 extern ProfileStore profileStore;

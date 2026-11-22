@@ -3,7 +3,7 @@
  * Inhalt: setup() richtet Pins und USB ein, loop() fragt alle Tasten ab und spielt bei einem
  *         akzeptierten Tastendruck die Schritte der Taste ab. Der Drehregler (#26) wird abgefragt und
  *         die Drehrichtung ausgegeben. Ein Druck auf den Drehregler schaltet das Profil um (#27).
- *         Der Protokoll-Handler (#29) beantwortet Anfragen der Web-App. Flash (#30) folgt in einem eigenen Issue.
+ *         Der Protokoll-Handler (#29) beantwortet Anfragen der Web-App. Beim Start werden die Profile aus dem Flash geladen (#30).
  */
 #include <Arduino.h>
 
@@ -11,6 +11,7 @@
 #include "config.h"
 #include "debouncer.h"
 #include "encoder.h"
+#include "profile_store.h"
 #include "protocol.h"
 
 Debouncer debouncers[NUM_KEYS] = {Debouncer(DEBOUNCE_MS), Debouncer(DEBOUNCE_MS), Debouncer(DEBOUNCE_MS),
@@ -27,6 +28,7 @@ void setup() {
   pinMode(ENCODER_PIN_A, INPUT_PULLUP);
   pinMode(ENCODER_PIN_B, INPUT_PULLUP);
   pinMode(ENCODER_PIN_BUTTON, INPUT_PULLUP);
+  profileStore.begin();  // load stored profiles from flash (#30)
   initKeyboard();
 }
 

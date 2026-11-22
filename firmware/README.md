@@ -13,7 +13,7 @@ USB-Tastatur senden. Später kommen Drehregler, Profile, Protokoll-Handler und F
 | #26 | Drehregler auslesen | Drehrichtung in `src/encoder.h`, Ausgabe `ENC +1/-1` auf der seriellen Debug-Schnittstelle. Auf Hardware noch nicht getestet |
 | #27 | Profilwechsel | Druck auf den Drehregler, zwei fest eingebaute Profile (PR offen) |
 | #29 | Protokoll-Handler | `device.info`, `profile.get/set/activate` über die serielle Schnittstelle (`src/protocol.cpp`), Profile im RAM (PR offen, nicht am Board getestet). Nie beschriebene Slots spielen die eingebauten Beispielprofile |
-| #30 | Flash | offen |
+| #30 | Flash | Profiltexte im NVS (`src/profile_store.cpp`), beim Start geladen und neu geprüft (PR offen, nicht am Board getestet). Das aktive Profil wird nicht gespeichert (Protokoll v1) |
 
 ## Aufbau
 
