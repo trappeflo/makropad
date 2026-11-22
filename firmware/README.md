@@ -10,14 +10,17 @@ USB-Tastatur senden. Später kommen Drehregler, Profile, Protokoll-Handler und F
 | #21 | Gerüst mit PlatformIO | Build und Upload funktionieren |
 | #23 | Tasten einlesen und entprellen | 4 Tasten, interner Pull-up, Entprellen in `src/debouncer.h` |
 | #24 | USB-HID: Kombination und Text | Schritte (`mod`, `key`, `delay`) nach Protokoll v1, fest eingebaute Beispielbelegung |
-| #26, #27 | Drehregler, Profilwechsel | offen |
-| #29, #30 | Protokoll-Handler, Flash | offen |
+| #26 | Drehregler auslesen | Drehrichtung in `src/encoder.h`, Ausgabe `ENC +1/-1` auf der seriellen Debug-Schnittstelle. Auf Hardware noch nicht getestet |
+| #27 | Profilwechsel | Druck auf den Drehregler, zwei fest eingebaute Profile (PR offen) |
+| #29 | Protokoll-Handler | `device.info`, `profile.get/set/activate` über die serielle Schnittstelle (`src/protocol.cpp`), Profile im RAM (PR offen, nicht am Board getestet). Nie beschriebene Slots spielen die eingebauten Beispielprofile |
+| #30 | Flash | Profiltexte im NVS (`src/profile_store.cpp`), beim Start geladen und neu geprüft (PR offen, nicht am Board getestet). Das aktive Profil wird nicht gespeichert (Protokoll v1) |
 
 ## Aufbau
 
 | Datei | Inhalt |
 |---|---|
-| `src/config.h` | Pins der Tasten (GPIO 1, 2, 4, 5), Entprellzeit |
+| `src/config.h` | Pins der Tasten (GPIO 1, 2, 4, 5), Entprellzeit, Pins und Rastung des Drehreglers |
+| `src/encoder.h` | Drehrichtung eines Quadratur-Drehreglers per Zustandstabelle, ohne Arduino-Abhängigkeit |
 | `src/debouncer.h` | Entprellen eines Eingangs, ohne Arduino-Abhängigkeit |
 | `src/actions.h/.cpp` | Schritte als rohe HID-Codes, Abspielen über die USB-Tastatur, Beispielbelegung "Programmierung" |
 | `src/main.cpp` | `setup()` und `loop()` |
@@ -33,7 +36,7 @@ Jede Taste liegt zwischen GPIO und GND, der interne Pull-up genügt (LOW = gedr�
 | Taste | GPIO |
 |---|---|
 | T1 bis T4 | 1, 2, 4, 5 |
-| Drehregler A / B / Taster (noch nicht in der Firmware) | 11 / 12 / 13 |
+| Drehregler A / B | 11 / 12 (Taster auf 13 schaltet das Profil um) |
 
 ## Bauen und flashen
 
@@ -48,3 +51,11 @@ python -m platformio run -t upload
 - Die Debug-Ausgabe (`T1 pressed` usw.) hängt am Build-Flag `MAKROPAD_DEBUG`. Mit dem Protokoll-Handler (#29)
   muss sie entfallen, weil das Pad nach Protokoll v1 nie von sich aus sendet.
 - Achtung beim Testen: Eine Taste tippt echt in das Fenster mit Fokus. Vorher Notepad öffnen.
+
+## Rauchtest am Board
+
+`python firmware/tools/smoke_test.py COM4` (Port anpassen, ohne `python -I`, braucht `pyserial`) schickt die
+Befehle aus Protokoll v1 an das Pad, prüft Antworten und Fehlerfälle und sendet während des Tastendrucks
+weitere Anfragen. Damit lässt sich prüfen, dass HID und serieller Kanal gleichzeitig laufen (#31). Das
+Skript überschreibt Profil-Slot 1. Für #30 danach das Pad abziehen, wieder anstecken und `profile.get`
+für Index 1 abfragen.
