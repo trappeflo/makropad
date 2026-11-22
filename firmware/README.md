@@ -51,3 +51,11 @@ python -m platformio run -t upload
 - Die Debug-Ausgabe (`T1 pressed` usw.) hängt am Build-Flag `MAKROPAD_DEBUG`. Mit dem Protokoll-Handler (#29)
   muss sie entfallen, weil das Pad nach Protokoll v1 nie von sich aus sendet.
 - Achtung beim Testen: Eine Taste tippt echt in das Fenster mit Fokus. Vorher Notepad öffnen.
+
+## Rauchtest am Board
+
+`python firmware/tools/smoke_test.py COM4` (Port anpassen, ohne `python -I`, braucht `pyserial`) schickt die
+Befehle aus Protokoll v1 an das Pad, prüft Antworten und Fehlerfälle und sendet während des Tastendrucks
+weitere Anfragen. Damit lässt sich prüfen, dass HID und serieller Kanal gleichzeitig laufen (#31). Das
+Skript überschreibt Profil-Slot 1. Für #30 danach das Pad abziehen, wieder anstecken und `profile.get`
+für Index 1 abfragen.

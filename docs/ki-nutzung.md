@@ -23,3 +23,4 @@ was geändert oder verworfen wurde. Keine Prompts.
 | 2026-11-22 | #27 Profilwechsel in der Firmware | Firmware | Zwei fest eingebaute Profile, aktives Profil, Druck auf den Drehregler (GPIO 13, entprellt) schaltet um, nach meiner Entscheidung (Druck statt Drehen, R4) | |
 | 2026-11-22 | #29 Protokoll-Handler (Firmware) | Firmware | Zeilenleser, Handler für die vier Befehle mit vollständiger Prüfung nach docs/protokoll-v1.md, Profil-Slots im RAM, ArduinoJson (von mir freigegeben) | |
 | 2026-11-22 | #30 Profile im Flash speichern | Firmware | NVS-Ablage der Profiltexte, Laden und erneute Prüfung beim Start, Auslagern der Profilprüfung in profile_parser | |
+| 2026-11-22 | #31 Rauchtest für den Parallelbetrieb | Firmware | Python-Skript smoke_test.py (Protokoll-Befehle, Fehlerfälle, Anfragen während Tastendrücken), nicht ausgeführt | |
